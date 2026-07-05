@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #dialogue-container,#bg-container {
+            position:relative;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+
+            margin:auto;
+        }
+        #message-container,#message-input {
+            display:block;
+        }
+        .message {
+            border-width: 2px;
+            border-style: dotted;
+            border-color: whitesmoke;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="bg-container" style="background-color:darkblue;width:70%;text-align:center;position:absolute;">
+
+        <div id="dialogue-container" style="background-color: blue; width:50%;text-align:center">
+
+            <div id="message-container"></div>
+            <div id="message-input" style="background-color: white;"><h1>message input placeholder</h1></div>
+
+        </div>
+
+        <div id="dialogue-test">
+            <input type="text" id="uname-i"   />
+            <input type="text" id="xtext-i" />
+            <button id="test-button" onclick="generateMessage(document.getElementById('uname-i').value,document.getElementById('xtext-i').value);">Send!</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
