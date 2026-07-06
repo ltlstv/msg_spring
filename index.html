@@ -6,26 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="style.css">
-    <style>
-        #dialogue-container,#bg-container {
-            position:relative;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-
-            margin:auto;
-        }
-        #message-container,#message-input {
-            display:block;
-        }
-        .message {
-            border-width: 2px;
-            border-style: dotted;
-            border-color: whitesmoke;
-            color: white;
-        }
-    </style>
 
 </head>
 <body>
@@ -42,12 +22,14 @@
         <div id="dialogue-test">
             <input type="text" id="uname-i"   />
             <input type="text" id="xtext-i" />
-            <button id="test-button" onclick="generateMessage(document.getElementById('uname-i').value,document.getElementById('xtext-i').value);">Send!</button>
+            <button id="test-button">Send!</button>
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/message_board.js"></script>
+    <script src="js/send_message.js"></script>
+    <script src="js/get_all_messages.js"></script>
 
 </body>
 

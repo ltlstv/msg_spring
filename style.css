@@ -1,0 +1,18 @@
+#dialogue-container,#bg-container {
+    position:relative;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+
+    margin:auto;
+}
+#message-container,#message-input {
+    display:block;
+}
+.message {
+    border-width: 2px;
+    border-style: dotted;
+    border-color: whitesmoke;
+    color: white;
+}
