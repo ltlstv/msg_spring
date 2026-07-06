@@ -9,7 +9,7 @@ public class P2PController {
 
     @GetMapping("/handshake")
     public String handshake(@RequestParam String id) {
-        return ???
+        return "";
     }
 
 }

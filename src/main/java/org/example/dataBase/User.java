@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Builder
@@ -19,9 +20,12 @@ public class User implements Serializable {
 
     @Column(unique = true, nullable = false)
     private String username;
+    //заглушка
+//    Column(nullable = false)
+    private String hashPassword;
 
-    @Column(nullable = false)
-    private String hash_password;
+    private String avatarUrl;
 
-    private String avatar_url;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Messages> messages;
 }
