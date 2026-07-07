@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 #bg-container {
     top:0;
     bottom:0;
