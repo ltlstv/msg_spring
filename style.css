@@ -1,18 +1,49 @@
-#dialogue-container,#bg-container {
-    position:relative;
+#bg-container {
     top:0;
     bottom:0;
     left:0;
     right:0;
+    margin: 0 auto;
+}
 
-    margin:auto;
+#dialogue-container {
+    position:absolute;
+
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    max-height: 50%;
+    
+    display: flex;
+    flex-direction: column;
+
+    anchor-name: --dialogue-scene;
 }
-#message-container,#message-input {
-    display:block;
+
+#message-container {
+    flex: 1;
+    overflow: auto;
 }
+
+#message-input {
+
+    flex: 0 0 auto;
+}
+
+#dialogue-test {
+    position: absolute;
+    position-anchor: --dialogue-scene;
+    width: anchor-size(width);
+    top: anchor(bottom);
+    left: anchor(left);
+    margin-block-start: 1vh;
+}
+
 .message {
     border-width: 2px;
     border-style: dotted;
-    border-color: whitesmoke;
+    border-color: rgb(20, 18, 18);
     color: white;
 }

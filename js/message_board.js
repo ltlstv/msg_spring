@@ -2,21 +2,23 @@ const uname = document.getElementById('uname-i');
 const xtext = document.getElementById('xtext-i');
 const testButton = document.getElementById('test-button');
 
-testButton.addEventListener('click', () => {
+testButton.addEventListener('click', async () => {
     const username = uname.value.trim();
     const message = xtext.value.trim();
 
+    if (!message || !username) return false;
+
+    await generateMessage(username, message);
+
     uname.value = '';
     xtext.value = '';
-
-    generateMessage(username, message);
-
 });
 
-async function generateMessage(uname, text) {
+async function generateMessage(username, message) {
+
     const container = document.getElementById('message-container');
 
-    await send_message(uname, text);
+    await send_message(username, message);
     const data = await get_all_messages();
     const messages = data.allMessages;
 
