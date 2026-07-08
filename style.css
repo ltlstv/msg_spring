@@ -8,9 +8,17 @@
     left:0;
     right:0;
     margin: 0 auto;
+
+    background-color: #f5f6fa;
+    border: 0.3vw double #052698;
 }
 
-#dialogue-container {
+#chat-layout {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.01vw;
+    align-items: stretch;
+
     position:absolute;
 
     top:0;
@@ -19,7 +27,21 @@
     right:0;
     margin: auto;
     max-height: 50%;
+}
+
+#user-container {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    gap: 0.2vw;
+    margin: 0 auto;
+
+}
+
+#dialogue-container {
     
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
 
@@ -36,18 +58,9 @@
     flex: 0 0 auto;
 }
 
-#dialogue-test {
-    position: absolute;
-    position-anchor: --dialogue-scene;
-    width: anchor-size(width);
-    top: anchor(bottom);
-    left: anchor(left);
-    margin-block-start: 1vh;
-}
-
 .message {
     border-width: 2px;
     border-style: dotted;
-    border-color: rgb(20, 18, 18);
+    border-color: rgb(255, 255, 255);
     color: white;
 }

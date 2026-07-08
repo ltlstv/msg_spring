@@ -8,21 +8,33 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body style="background-color:white;">
+<body style="background: url(assets/img/blue_waves-bg_fhd.png);">
+    <div id="bg-container" style="max-width:1344px;height:auto;text-align:center;position:absolute;">
 
-    <div id="bg-container" style="background-color:darkblue;max-width:1344px;height:auto;text-align:center;position:absolute;">
+        <div id="chat-layout">
 
-        <div id="dialogue-container" style="background-color: blue;width:50%;text-align:center">
 
-            <div id="message-container"></div>
-            <div id="message-input" style="background-color: white;">message input placeholder</div>
+            <div id="user-container" style="background-color: #0984e3; width:95%; text-align:center">
 
-        </div>
+                <img src="assets/img/pfp-placeholder.png" ald="pfp"  style="max-width:150px;max-height:150px;">
+                <div style="color: white;">Username <input type="text" id="uname-i" /></div>
+                <div style="color: white;">Password <input type="text" id="upass-i" /></div>
+                <button id="load-messages">Login!</button>
 
-        <div id="dialogue-test">
-            <input type="text" id="uname-i"   />
-            <input type="text" id="xtext-i" />
-            <button id="test-button">Send!</button>
+                <div style="color: white;">Status <span id="ustatus">[Authorized/Not]</span></div>
+                <button id="load-messages">Load!</button>
+
+            </div>
+
+            <div id="dialogue-container" style="background-color: #0984e3; width:95%; text-align:center">
+
+                <div id="message-container"></div>
+                <div id="message-input">
+                    <input type="text" id="xtext-i" /><button id="test-button">Send!</button>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
