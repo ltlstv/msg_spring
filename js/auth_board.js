@@ -6,7 +6,7 @@ function renderGuestLayout() {
     document.getElementById('user-container').innerHTML = `
         <div style="color:white;">Username <input type="text" id="uname-i" /></div>
         <div style="color:white;">Password <input type="password" id="upass-i" /></div>
-        <button id="login-button">Login!</button>
+        <button id="login-btn">Login!</button><button id="register-btn">Register!</button>
     `;
 }
 
@@ -14,8 +14,8 @@ function renderUserLayout(uname = 'Alice') {
     document.getElementById('user-container').innerHTML = `
         <img src="assets/img/pfp-placeholder.png" alt="pfp" style="max-width:150px;max-height:150px;">
         <div style="color:white;">${uname}</div>
-        <button id="logout-button">Logout</button>
-        <button id="load-messages-button">Load messages</button>
+        <button id="logout-btn">Logout</button>
+        <button id="load-messages-btn">Load messages</button>
     `;
 }
 
