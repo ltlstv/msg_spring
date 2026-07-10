@@ -16,14 +16,6 @@
 
             <div id="user-container" style="background-color: #0984e3; width:95%; text-align:center">
 
-                <img src="assets/img/pfp-placeholder.png" ald="pfp"  style="max-width:150px;max-height:150px;">
-                <div style="color: white;">Username <input type="text" id="uname-i" /></div>
-                <div style="color: white;">Password <input type="text" id="upass-i" /></div>
-                <button id="load-messages">Login!</button>
-
-                <div style="color: white;">Status <span id="ustatus">[Authorized/Not]</span></div>
-                <button id="load-messages">Load!</button>
-
             </div>
 
             <div id="dialogue-container" style="background-color: #0984e3; width:95%; text-align:center">
@@ -37,11 +29,16 @@
 
         </div>
 
+        <div class='test-window' style='border: 2px double black;'><button id="user-auth-btn">Change auth flag</button></div>
+
     </div>
 
-    <script src="js/message_board.js"></script>
+    
+
     <script src="js/send_message.js"></script>
     <script src="js/get_all_messages.js"></script>
+    <script src="js/auth_board.js"></script>
+    <script src="js/message_board.js"></script>
 
 </body>
 
