@@ -1,48 +1,27 @@
 package org.example.restControllers;
 
-import org.example.dataBase.Messages;
-import org.example.dataBase.MessagesRepository;
-import org.example.dataBase.User;
-import org.example.dataBase.UserRepository;
-import org.example.dto.AllMessages;
-import org.example.dto.MessageRequest;
-import org.example.dto.MessageResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.example.dto.MessageDto.MessageRequest;
+import org.example.dto.MessageDto.MessageResponse;
+import org.example.services.MessageService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/messages")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class MessageController {
 
-    @Autowired
-    private MessagesRepository messagesRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final MessageService messageService;
 
     @PostMapping("/new")
-    public MessageResponse newMessage(@RequestBody MessageRequest messageRequest) {
-        //оптимизировать
-        if (!userRepository.findByUsername(messageRequest.getUsername()).isPresent()) {
-            User savedUser = userRepository.save(User.builder().username(messageRequest.getUsername()).build());
-            messagesRepository.save(Messages.builder().user(savedUser).message(messageRequest.getMessage()).build());
-        } else {
-            User existingUser = userRepository.findByUsername(messageRequest.getUsername()).get();
-            messagesRepository.save(Messages.builder().user(existingUser).message(messageRequest.getMessage()).build());
-        }
-
-        return MessageResponse.builder().message("Сообщение доставлено").build();
+    public MessageResponse newMessage(@RequestBody MessageRequest messageRequest, @RequestHeader("Authorization") String authHeader) {
+        return messageService.save(messageRequest, authHeader.substring(7));
     }
 
     @GetMapping("/all")
-    public MessageResponse getAllMessages() {
-        return MessageResponse.builder()
-                .allMessages(messagesRepository
-                                .findAllMessages()
-                                .stream()
-                                .map(AllMessages::new)
-                                .toList()
-                ).build();
+    public MessageResponse getAllMessages(@RequestHeader("Authorization") String authHeader) {
+        return messageService.getAllUserMessages(authHeader.substring(7));
     }
 
 }

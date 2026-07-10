@@ -20,8 +20,8 @@ public class User implements Serializable {
 
     @Column(unique = true, nullable = false)
     private String username;
-    //заглушка
-//    Column(nullable = false)
+
+    @Column(nullable = false)
     private String hashPassword;
 
     private String avatarUrl;
