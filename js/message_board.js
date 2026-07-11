@@ -3,24 +3,23 @@ const xtext = document.getElementById('xtext-i');
 const testButton = document.getElementById('test-button');
 
 testButton.addEventListener('click', async () => {
-    const username = uname.value.trim();
-    const message = xtext.value.trim();
+    const message = document.getElementById('xtext-i').value.trim();
 
-    if (!message || !username) return false;
+    if (!message || !getToken()) return false;
 
-    await generateMessage(username, message);
+    await generateMessage(message);
 
-    uname.value = '';
-    xtext.value = '';
+    document.getElementById('xtext-i').value = '';
 });
 
 async function generateMessage(username, message) {
 
     const container = document.getElementById('message-container');
 
-    await send_message(username, message);
+    await send_message(message);
+
     const data = await get_all_messages();
-    const messages = data.allMessages;
+    const messages = data.messages;
 
     container.innerHTML = '';
 
@@ -28,7 +27,6 @@ async function generateMessage(username, message) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message');
         messageDiv.innerHTML = `
-            <h3>${msg.username}</h3>
             <p>${msg.message}</p>
         `;
         container.appendChild(messageDiv);
