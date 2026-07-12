@@ -14,14 +14,14 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @PostMapping("/new")
+    @PostMapping("/send")
     public MessageResponse newMessage(@RequestBody MessageRequest messageRequest, @RequestHeader("Authorization") String authHeader) {
-        return messageService.save(messageRequest, authHeader.substring(7));
+        return messageService.sendToUser(messageRequest, authHeader.substring(7));
     }
 
-    @GetMapping("/all")
-    public MessageResponse getAllMessages(@RequestHeader("Authorization") String authHeader) {
-        return messageService.getAllUserMessages(authHeader.substring(7));
+    @GetMapping("/read")
+    public MessageResponse readMessages(@RequestHeader("Authorization") String authHeader) {
+        return messageService.getAllReceivedMessages(authHeader.substring(7));
     }
 
 }
