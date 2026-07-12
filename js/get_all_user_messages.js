@@ -2,7 +2,7 @@ async function get_all_user_messages() {
     const token = getToken()
 
     const response = await fetch(
-        "http://localhost:8080/api/messages/all",
+        "http://localhost:8080/api/messages/read",
         {
             method: "GET",
             headers: {
@@ -30,6 +30,7 @@ async function renderMessages() {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
         messageDiv.innerHTML = `
+            <h3>${msg.sender}</h3>
             <p>${msg.message}</p>
         `;
         container.appendChild(messageDiv);
