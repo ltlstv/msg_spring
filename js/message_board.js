@@ -19,18 +19,4 @@ async function generateMessage(recipientUser, message) {
 
     await send_message(recipientUser, message);
 
-    const data = await get_all_user_messages();
-    const messages = data.messages;
-
-    container.innerHTML = '';
-
-    messages.forEach((msg) => {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message');
-        messageDiv.innerHTML = `
-            <h3>${msg.sender}</h3>
-            <p>${msg.message}</p>
-        `;
-        container.appendChild(messageDiv);
-    });
 }
