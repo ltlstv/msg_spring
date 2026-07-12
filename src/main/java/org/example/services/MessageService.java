@@ -12,6 +12,8 @@ import org.example.dto.MessageDto.MessageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MessageService {
@@ -20,24 +22,34 @@ public class MessageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public MessageResponse save(MessageRequest messageRequest, String token) {
+    public MessageResponse sendToUser(MessageRequest messageRequest, String token) {
         int userId = JwtUtill.getUserIdFromToken(token);
-        User user = userRepository.findById(userId).orElse(null);
+        User userSender = userRepository.findById(userId).orElse(null);
+        User userReceiver = userRepository.findByUsername(messageRequest.recipientUser()).orElse(null);
 
-        if (user == null) {
-            return new MessageResponse.Text("User not found");
+        if (userSender == null) {
+            return new MessageResponse.Text("Sender user not found");
         }
 
-        messagesRepository.save(Messages.builder().user(user).message(messageRequest.message()).build());
+        if (userReceiver == null) {
+            return new MessageResponse.Text("Receiver user not found");
+        }
 
-        return new MessageResponse.Text("Message saved successfully");
+        messagesRepository.save(Messages.builder().sender(userSender).recipient(userReceiver).message(messageRequest.message()).build());
+
+        return new MessageResponse.Text("Message send successfully");
     }
 
     @Transactional(readOnly = true)
-    public MessageResponse getAllUserMessages(String token) {
+    public MessageResponse getAllReceivedMessages(String token) {
         int userId = JwtUtill.getUserIdFromToken(token);
 
-        return new MessageResponse.MessageList(messagesRepository.findByUserId(userId).stream().map(MessageItem::from).toList());
-    }
+        List<MessageItem> receivedMessages = messagesRepository.findByRecipientId(userId).stream().map(MessageItem::from).toList();
 
+        if (receivedMessages.isEmpty()) {
+            return new MessageResponse.Text("You have no incoming messages");
+        } else {
+            return new MessageResponse.MessageList(receivedMessages);
+        }
+    }
 }
