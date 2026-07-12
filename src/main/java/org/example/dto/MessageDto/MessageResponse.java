@@ -1,6 +1,5 @@
 package org.example.dto.MessageDto;
 
-import org.example.dataBase.Messages;
 import java.util.List;
 
 public sealed interface MessageResponse {
