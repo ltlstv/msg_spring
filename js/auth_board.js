@@ -3,15 +3,15 @@ auth_flag_test_btn = document.getElementById('user-auth-btn')
 uname = document.getElementById('uname-i')
 testButton = document.getElementById('test-button')
 
-testButton.addEventListener('click', async () => {
-    const message = document.getElementById('xtext-i').value.trim();
-
-    if (!message || !getToken()) return false;
-
-    await generateMessage(message);
-
-    document.getElementById('xtext-i').value = '';
-});
+//testButton.addEventListener('click', async () => {
+//    const message = document.getElementById('xtext-i').value.trim();
+//
+//    if (!message || !getToken()) return false;
+//
+//    await generateMessage(message);
+//
+//    document.getElementById('xtext-i').value = '';
+//});
 
 function renderGuestLayout() {
     document.getElementById('user-container').innerHTML = `

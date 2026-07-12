@@ -1,4 +1,4 @@
-async function get_all_messages() {
+async function get_all_user_messages() {
     const token = getToken()
 
     const response = await fetch(
@@ -15,7 +15,7 @@ async function get_all_messages() {
 }
 
 async function renderMessages() {
-    const data = await get_all_messages();
+    const data = await get_all_user_messages();
     const messages = data.messages;
 
     const container = document.getElementById("message-container");

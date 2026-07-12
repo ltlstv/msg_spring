@@ -12,13 +12,13 @@ testButton.addEventListener('click', async () => {
     document.getElementById('xtext-i').value = '';
 });
 
-async function generateMessage(username, message) {
+async function generateMessage(message) {
 
     const container = document.getElementById('message-container');
 
     await send_message(message);
 
-    const data = await get_all_messages();
+    const data = await get_all_user_messages();
     const messages = data.messages;
 
     container.innerHTML = '';

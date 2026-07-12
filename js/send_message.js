@@ -1,4 +1,4 @@
-async function send_message(username, message) {
+async function send_message(message) {
     const token = getToken();
 
     const response = await fetch(
@@ -9,7 +9,7 @@ async function send_message(username, message) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({username, message})
+            body: JSON.stringify({message})
         }
     );
 
