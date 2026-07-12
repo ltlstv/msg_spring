@@ -23,16 +23,16 @@ public class AuthService {
             return new AuthResponse.ErrorMessage("Username is already in use");
         } else {
             User user = User.builder().username(authRequest.username()).hashPassword(authRequest.password()).build();
+            userRepository.save(user);
             return new AuthResponse.Token(JwtUtill.generateToken(user.getUsername(), user.getId()));
         }
     }
 
     public AuthResponse login(AuthRequest authRequest) {
-        Optional<User> userOpt = userRepository.findByUsername(authRequest.username());
-        if (userOpt.isEmpty()) {
+        User user = userRepository.findByUsername(authRequest.username()).orElse(null);
+        if (user == null) {
             return new AuthResponse.ErrorMessage("User does not exist");
         } else {
-            User user = userOpt.get();
             if (user.getHashPassword().equals(authRequest.password())) {
                 return new AuthResponse.Token(JwtUtill.generateToken(user.getUsername(), user.getId()));
             } else {
