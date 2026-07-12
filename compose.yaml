@@ -1,6 +1,8 @@
 services:
   postgres:
     image: 'postgres:latest'
+    container_name: postgres
+    restart: unless-stopped
     environment:
       POSTGRES_DB: database
       POSTGRES_PASSWORD: 1234
