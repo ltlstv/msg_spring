@@ -3,17 +3,20 @@
 }
 
 #bg-container {
+
+    position:relative;
     top:0;
     bottom:0;
     left:0;
     right:0;
     margin: 0 auto;
 
-    background-color: #f5f6fa;
+    background-color: #ffffff;
     border: 0.3vw double #052698;
 }
 
 #chat-layout {
+
     display:grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.01vw;
@@ -27,9 +30,11 @@
     right:0;
     margin: auto;
     max-height: 50%;
+    z-index: 2;
 }
 
 #user-container {
+
     display: flex;
     flex-direction: column;
     align-items:center;
@@ -44,13 +49,16 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
-    anchor-name: --dialogue-scene;
 }
 
 #message-container {
+
     flex: 1;
-    overflow: auto;
+    min-height: 0;
+    overflow-y: auto;
+
 }
 
 #message-input {
@@ -58,9 +66,24 @@
     flex: 0 0 auto;
 }
 
+#maiden-img {
+
+    position: absolute;
+    position-anchor: --bg-container;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    max-height: 75%  ;
+
+}
+
 .message {
     border-width: 2px;
     border-style: dotted;
-    border-color: rgb(255, 255, 255);
+    border-color: white;
     color: white;
+}
+
+.window {
+    border: 1em solid rgb(219, 219, 219);
 }
