@@ -78,12 +78,52 @@
 }
 
 .message {
-    border-width: 2px;
-    border-style: dotted;
-    border-color: white;
+    font-family: Consolas,monospace;
+    padding-left: 1em;
+    text-align: justify;
+    border: 2px solid white;
     color: white;
 }
 
-.window {
-    border: 1em solid rgb(219, 219, 219);
+.window {border: 1em solid rgb(219, 219, 219);}
+
+.msg-tabs {display:none}
+
+div {font-family: Consolas,monospace;}
+
+@media (max-width: 599px) {
+
+    #chat-layout {
+        grid-template-columns: 1fr;
+        anchor-name: --chat-layout;
+    }
+
+    #user-container[data-msg-tab-content],
+    #dialogue-container[data-msg-tab-content] {
+        display: none;
+    }
+
+    #user-container.active-tab[data-msg-tab-content],
+    #dialogue-container.active-tab[data-msg-tab-content] {
+        display: flex;
+    }
+
+    .msg-tabs{
+        font-family: Consolas, monospace;
+        color: white;
+        margin: 0;
+        padding: 1em;
+
+        display: flex;
+        z-index: 2;
+        
+        justify-content: space-evenly;
+        list-style-type: none;
+
+        position:absolute;
+        position-anchor: --chat-layout;
+        top: anchor(bottom);
+        width: anchor-size(width);
+    }
+
 }

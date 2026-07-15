@@ -14,11 +14,11 @@
         <div id="chat-layout">
 
 
-            <div id="user-container" class="window" style="background-color: #3b3b3bb2; width:95%; text-align:center">
+            <div id="user-container" class="window active-tab" style="background-color: #3b3b3bb2; width:95%; text-align:center" data-msg-tab-content>
 
             </div>
 
-            <div id="dialogue-container" class="window" style="background-color: #3b3b3bb2; width:95%; text-align:center">
+            <div id="dialogue-container" class="window" style="background-color: #3b3b3bb2; width:95%; text-align:center" data-msg-tab-content>
 
                 <div id="message-container"></div>
                 <div id="message-input">
@@ -30,6 +30,10 @@
         </div>
 
         <div class='test-window' style='border: 2px double black;'><button id="user-auth-btn">Change auth flag</button></div>
+        <ul class="msg-tabs">
+            <li data-msg-tab-target="#user-container" style="padding: 0.5em; border: 0.5em solid rgb(219, 219, 219); background-color:#3b3b3bb2;">User</li>
+            <li data-msg-tab-target="#dialogue-container" style="padding: 0.5em; border: 0.5em solid rgb(219, 219, 219); background-color:#3b3b3bb2;">Chat</li>
+        </ul>
 
         <img id="maiden-img" src="assets/img/maiden.png">
 
@@ -42,6 +46,7 @@
     <script src="js/get_all_user_messages.js"></script>
     <script src="js/auth_board.js"></script>
     <script src="js/message_board.js"></script>
+    <script src="js/tabs_board.js"></script>
 
 </body>
 
