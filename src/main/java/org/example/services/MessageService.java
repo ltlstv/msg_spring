@@ -1,7 +1,7 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.auxiliaryServices.JwtUtill;
+import org.example.Security.JwtUtill;
 import org.example.dataBase.Messages;
 import org.example.dataBase.MessagesRepository;
 import org.example.dataBase.User;
@@ -9,6 +9,7 @@ import org.example.dataBase.UserRepository;
 import org.example.dto.MessageDto.MessageItem;
 import org.example.dto.MessageDto.MessageRequest;
 import org.example.dto.MessageDto.MessageResponse;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +23,9 @@ public class MessageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public MessageResponse sendToUser(MessageRequest messageRequest, String token) {
-        int userId = JwtUtill.getUserIdFromToken(token);
-        User userSender = userRepository.findById(userId).orElse(null);
+    public MessageResponse sendToUser(MessageRequest messageRequest) {
+        User userSender = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userReceiver = userRepository.findByUsername(messageRequest.recipientUser()).orElse(null);
-
-        if (userSender == null) {
-            return new MessageResponse.Text("Sender user not found");
-        }
 
         if (userReceiver == null) {
             return new MessageResponse.Text("Receiver user not found");
@@ -41,10 +37,10 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
-    public MessageResponse getAllReceivedMessages(String token) {
-        int userId = JwtUtill.getUserIdFromToken(token);
-
-        List<MessageItem> receivedMessages = messagesRepository.findByRecipientId(userId).stream().map(MessageItem::from).toList();
+    public MessageResponse getAllReceivedMessages() {
+        User currentUser = (User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        List<MessageItem> receivedMessages = messagesRepository.findByRecipientId(currentUser.getId()).stream().map(MessageItem::from).toList();
 
         if (receivedMessages.isEmpty()) {
             return new MessageResponse.Text("You have no incoming messages");
