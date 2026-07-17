@@ -35,20 +35,20 @@
 
 #user-container {
 
-    display: flex;
+    display:flex;
     flex-direction: column;
+    flex: 1;
     align-items:center;
     justify-content: center;
     gap: 0.2vw;
-    margin: 0 auto;
 
 }
 
 #dialogue-container {
     
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    flex: 1;
     overflow: hidden;
 
 }
@@ -85,9 +85,22 @@
     color: white;
 }
 
-.window {border: 1em solid rgb(219, 219, 219);}
+.app-window {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(219, 219, 219);
+}
 
 .msg-tabs {display:none}
+
+.app-window-header {
+    justify-content: left;
+    height: 1em;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(219, 219, 219);
+}
 
 div {font-family: Consolas,monospace;}
 

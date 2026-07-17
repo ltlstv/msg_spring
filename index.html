@@ -13,12 +13,17 @@
 
         <div id="chat-layout">
 
+            <section id="user-window" style="background-color: #3b3b3bb2; width:95%;" class="app-window">
 
-            <div id="user-container" class="window active-tab" style="background-color: #3b3b3bb2; width:95%; text-align:center" data-msg-tab-content>
+            <div id="user-container-header" class="app-window-header">Authorization</div>
+            <div id="user-container" class="active-tab" style="text-align:center;" data-msg-tab-content></div>
 
-            </div>
+            </section>
 
-            <div id="dialogue-container" class="window" style="background-color: #3b3b3bb2; width:95%; text-align:center" data-msg-tab-content>
+            <section id="dialogue-window" class="app-window" style="background-color: #3b3b3bb2; width:95%; ">
+
+            <div id="dialogue-container-header" class="app-window-header">Chat</div>
+            <div id="dialogue-container" style="text-align:center;" data-msg-tab-content>
 
                 <div id="message-container"></div>
                 <div id="message-input">
@@ -26,6 +31,8 @@
                 </div>
 
             </div>
+
+            </section>
 
         </div>
 
