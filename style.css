@@ -111,13 +111,17 @@ div {font-family: Consolas,monospace;}
         anchor-name: --chat-layout;
     }
 
-    #user-container[data-msg-tab-content],
-    #dialogue-container[data-msg-tab-content] {
+    #user-window[data-msg-tab-content],
+    #dialogue-window[data-msg-tab-content],
+    #music-window[data-msg-tab-content],
+    #diagn-window[data-msg-tab-content] {
         display: none;
     }
 
-    #user-container.active-tab[data-msg-tab-content],
-    #dialogue-container.active-tab[data-msg-tab-content] {
+    #user-window.active-tab[data-msg-tab-content],
+    #dialogue-window.active-tab[data-msg-tab-content],
+    #music-window.active-tab[data-msg-tab-content],
+    #diagn-window.active-tab[data-msg-tab-content] {
         display: flex;
     }
 
