@@ -1,16 +1,13 @@
-import { getToken } from './auth_api';
-
 export async function send_message(recipientUser, message) {
-  const token = getToken();
 
-  const response = await fetch('http://localhost:8080/api/messages/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ recipientUser, message }),
-  });
+    if (!stompClient || !stompClient.connected) {
+        console.log("WebSocket не подключен");
+        return;
+    }
 
-  return await response.json();
+    stompClient.send(
+        "/app/chat.send",
+        {},
+        JSON.stringify({recipientUser, message})
+    );
 }

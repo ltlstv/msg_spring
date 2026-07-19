@@ -1,6 +1,7 @@
 import pfpPlaceholder from '../assets/img/pfp-placeholder.png';
 import { login, logout, register, saveToken } from './auth_api';
-import { renderMessages } from './get_all_user_messages';
+import { renderMessages } from './get_messages_history.js';
+import { connect_ws } from '/ws_connection.js'
 
 let authFlagTest = 0;
 
@@ -71,6 +72,8 @@ async function handleLogin() {
   if (data.token) {
     saveToken(data.token);
     renderUserLayout(username);
+    connect_ws();
+
   } else {
     alert(data.message);
   }
@@ -85,6 +88,7 @@ async function handleRegister() {
   if (data.token) {
     saveToken(data.token);
     renderUserLayout(username);
+    connect_ws();
   } else {
     alert(data.message);
   }

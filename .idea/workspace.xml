@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1599c19-5988-444e-889f-1fa4b487987b" name="Changes" comment="" />
+    <list default="true" id="b1599c19-5988-444e-889f-1fa4b487987b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/js/subscriptions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/js/ws_connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/auth_board.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/auth_board.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/get_all_user_messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/get_messages_history.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/message_board.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/message_board.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/send_message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/send_message.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +21,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -42,7 +51,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.rsbuild.config.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -92,7 +103,8 @@
       <option name="presentableId" value="Default" />
       <updated>1783286801725</updated>
       <workItem from="1783286802812" duration="10401000" />
-      <workItem from="1783713369554" duration="6119000" />
+      <workItem from="1783713369554" duration="10962000" />
+      <workItem from="1784140315839" duration="8523000" />
     </task>
     <servers />
   </component>
