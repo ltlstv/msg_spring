@@ -1,14 +1,13 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.Security.JwtUtill;
 import org.example.dataBase.Messages;
 import org.example.dataBase.MessagesRepository;
 import org.example.dataBase.User;
 import org.example.dataBase.UserRepository;
-import org.example.dto.MessageDto.MessageItem;
-import org.example.dto.MessageDto.MessageRequest;
-import org.example.dto.MessageDto.MessageResponse;
+import org.example.dto.messageDto.MessageItem;
+import org.example.dto.messageDto.MessageRequest;
+import org.example.dto.messageDto.MessageResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +22,7 @@ public class MessageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public MessageResponse sendToUser(MessageRequest messageRequest) {
-        User userSender = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public MessageResponse sendToUser(User userSender, MessageRequest messageRequest) {
         User userReceiver = userRepository.findByUsername(messageRequest.recipientUser()).orElse(null);
 
         if (userReceiver == null) {
@@ -33,7 +31,7 @@ public class MessageService {
 
         messagesRepository.save(Messages.builder().sender(userSender).recipient(userReceiver).message(messageRequest.message()).build());
 
-        return new MessageResponse.Text("Message send successfully");
+        return new MessageResponse.SingleMessage(new MessageItem(-1, messageRequest.message(), userSender.getUsername()));
     }
 
     @Transactional(readOnly = true)

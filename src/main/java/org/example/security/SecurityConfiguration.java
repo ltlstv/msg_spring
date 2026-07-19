@@ -1,4 +1,4 @@
-package org.example.Security;
+package org.example.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,28 +15,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final CorsConfiguration corsConfig;   // можно напрямую внедрить CorsConfigurationSource
+    private final CorsConfiguration corsConfig;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Подключаем наш CORS-бин
                 .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
 
-                // 2. Отключаем CSRF (для REST API, где нет форм и кук)
                 .csrf(csrf -> csrf.disable())
 
-                // 3. Отключаем сессии – всё по токенам
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 
-                // 4. Правила доступа
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()   // логин/регистрация открыты
-                        .anyRequest().authenticated()                 // всё остальное только с токеном
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
                 )
 
-                // 5. Добавляем наш JWT-фильтр перед стандартным UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -1,11 +1,11 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.Security.JwtUtill;
+import org.example.security.JwtUtill;
 import org.example.dataBase.User;
 import org.example.dataBase.UserRepository;
-import org.example.dto.AuthDto.AuthRequest;
-import org.example.dto.AuthDto.AuthResponse;
+import org.example.dto.authDto.AuthRequest;
+import org.example.dto.authDto.AuthResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

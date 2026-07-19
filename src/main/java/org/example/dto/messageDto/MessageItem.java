@@ -1,4 +1,4 @@
-package org.example.dto.MessageDto;
+package org.example.dto.messageDto;
 
 import org.example.dataBase.Messages;
 

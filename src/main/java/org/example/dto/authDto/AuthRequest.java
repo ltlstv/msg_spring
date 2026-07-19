@@ -1,4 +1,4 @@
-package org.example.dto.AuthDto;
+package org.example.dto.authDto;
 
 public record AuthRequest(
         String username,

@@ -1,8 +1,8 @@
 package org.example.restControllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.MessageDto.MessageRequest;
-import org.example.dto.MessageDto.MessageResponse;
+import org.example.dto.messageDto.MessageRequest;
+import org.example.dto.messageDto.MessageResponse;
 import org.example.services.MessageService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +13,12 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @PostMapping("/send")
-    public MessageResponse newMessage(@RequestBody MessageRequest messageRequest) {
-        return messageService.sendToUser(messageRequest);
-    }
+//    @PostMapping("/send")
+//    public MessageResponse newMessage(@RequestBody MessageRequest messageRequest) {
+//        return messageService.sendToUser(messageRequest);
+//    }
 
-    @GetMapping("/read")
+    @GetMapping("/get-message-history")
     public MessageResponse readMessages() {
         return messageService.getAllReceivedMessages();
     }
