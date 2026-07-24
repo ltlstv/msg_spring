@@ -1,4 +1,4 @@
-package org.example.dto.MessageDto;
+package org.example.dto.messageDto;
 
 public record MessageRequest(
         String recipientUser,

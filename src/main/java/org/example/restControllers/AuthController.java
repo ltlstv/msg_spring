@@ -1,14 +1,13 @@
 package org.example.restControllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.AuthDto.AuthRequest;
-import org.example.dto.AuthDto.AuthResponse;
+import org.example.dto.authDto.AuthRequest;
+import org.example.dto.authDto.AuthResponse;
 import org.example.services.AuthService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 class AuthController {
 
