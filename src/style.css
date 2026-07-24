@@ -45,6 +45,10 @@ body {
   gap: 0.2vw;
 }
 
+#dialogue-window {
+  overflow: hidden;
+}
+
 #dialogue-container {
   display: flex;
   flex-direction: column;
@@ -54,7 +58,7 @@ body {
 
 #message-container {
   flex: 1;
-
+  overflow-y: auto;
 }
 
 #message-input {
@@ -95,6 +99,18 @@ body {
   display: flex;
   flex-direction: row;
   background-color: rgb(219, 219, 219);
+}
+
+.popup-column {
+  display: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.popup-column.popupShow {
+  display: flex;
+  position: absolute;
+  cursor: pointer;
 }
 
 div {
@@ -138,4 +154,15 @@ div {
     top: anchor(bottom);
     width: anchor-size(width);
   }
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+  background-color: darkgrey;
+  border-radius: 3px;
+  border: 1px solid #ffffff;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
 }

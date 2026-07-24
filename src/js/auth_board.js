@@ -1,6 +1,8 @@
 import pfpPlaceholder from '../assets/img/pfp-placeholder.png';
-import { login, logout, register, saveToken } from './auth_api';
-import { renderMessages } from './get_all_user_messages';
+import { login, logout, register, saveToken, uploadUserPfpImg } from './auth_api';
+import { renderMessages } from './get_messages_history.js';
+import { connect_ws } from './ws_connection.js'
+import { popupPfp } from './utils';
 
 let authFlagTest = 0;
 
@@ -43,7 +45,13 @@ function renderGuestLayout() {
 
 function renderUserLayout(uname = 'Alice') {
   document.getElementById('user-container').innerHTML = `
-        <img src="${pfpPlaceholder}" alt="pfp" style="max-width:150px;max-height:150px;">
+        <img id="user-pfp" src="${pfpPlaceholder}" alt="pfp" style="max-width:150px;max-height:150px;">
+        <div class="popup-column" id="popup-user-pfp">
+
+          <button id="pfp-input-btn">Change!</button>
+          <input type="file" id="pfp-input-file" accept="image/png,image/jpeg,image/webp">
+          
+        </div>
         <div style="color:white;">${uname}</div>
         <button type="button" id="logout-btn">Logout</button>
         <button type="button" id="load-messages-btn">Load messages</button>
@@ -53,6 +61,35 @@ function renderUserLayout(uname = 'Alice') {
     logout();
     renderGuestLayout();
     document.getElementById('message-container').innerHTML = '';
+  });
+
+  document.getElementById('user-pfp').addEventListener('click', () => {
+    const popup = document.getElementById('popup-user-pfp');
+    popup.classList.toggle("popupShow");
+
+    return;
+  });
+
+
+  document.getElementById('pfp-input-btn').addEventListener('click', async () => {
+    const allowedTypes = ['image/png', 'image,jpeg', 'image/webp']
+    
+    const input = document.getElementById('pfp-input-file');
+    const file = input.files[0];
+
+    if (!file || !allowedTypes.includes(file.type)) {
+      input.value = '';
+      alert("File is empty or does not match requirements:\nOnly jpeg, png and webp are allowed;")
+      return;
+    }
+
+    const data = await uploadUserPfpImg(file);
+
+    if (data.avatarUrl) {
+      document.getElementById('user-pfp').src = data.avatarUrl;
+    }
+
+    input.value = '';
   });
 
   document
@@ -71,6 +108,7 @@ async function handleLogin() {
   if (data.token) {
     saveToken(data.token);
     renderUserLayout(username);
+    connect_ws();
   } else {
     alert(data.message);
   }
@@ -85,6 +123,7 @@ async function handleRegister() {
   if (data.token) {
     saveToken(data.token);
     renderUserLayout(username);
+    connect_ws();
   } else {
     alert(data.message);
   }

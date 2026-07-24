@@ -1,9 +1,9 @@
 import { getToken } from './auth_api';
 
-async function get_all_user_messages() {
+async function get_messages_history() {
   const token = getToken();
 
-  const response = await fetch('http://localhost:8080/api/messages/read', {
+  const response = await fetch('http://localhost:8080/api/messages/get-message-history', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ async function get_all_user_messages() {
 }
 
 export async function renderMessages() {
-  const data = await get_all_user_messages();
+  const data = await get_messages_history();
   const messages = data.messages;
 
   const container = document.getElementById('message-container');

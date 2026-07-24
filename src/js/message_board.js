@@ -21,11 +21,7 @@ async function handleSendMessage() {
 
   if (!message || !getToken()) return false;
 
-  await generateMessage(recipientUser, message);
+  await send_message(recipientUser, message);
 
   document.getElementById('xtext-i').value = '';
-}
-
-async function generateMessage(recipientUser, message) {
-  await send_message(recipientUser, message);
 }

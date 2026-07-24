@@ -11,8 +11,10 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.3.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",

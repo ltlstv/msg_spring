@@ -9,4 +9,7 @@ export default defineConfig({
       reactCompiler: true,
     }),
   ],
+  server: {
+    port: 5500,
+  },
 });
