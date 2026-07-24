@@ -3,6 +3,7 @@ import { getToken } from './auth_api.js'
 import SockJS from 'sockjs-client'
 import { Client } from '@stomp/stompjs'
 
+
 let stompClient;
 
 export function connect_ws() {
