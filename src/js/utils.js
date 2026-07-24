@@ -3,4 +3,3 @@ export async function getUserPfpUrl(username) {
 
   return 'http://localhost:8080/src/assets/pfp/' + data.imgId + '.jpg';
 }
-

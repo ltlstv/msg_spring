@@ -1,28 +1,26 @@
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { getToken } from './auth_api.js';
 import { subscribeToMessages } from './subscriptions.js';
-import { getToken } from './auth_api.js'
-import SockJS from 'sockjs-client'
-import { Client } from '@stomp/stompjs'
-
 
 let stompClient;
 
 export function connect_ws() {
+  const token = getToken();
 
-    const socket = new SockJS(
-        "http://localhost:8080/websocket"
-    );
+  stompClient = new Client({
+    connectHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+    webSocketFactory: () => new SockJS('http://localhost:8080/websocket'),
+    onConnect: () => {
+      subscribeToMessages(stompClient);
+    },
+  });
 
-    stompClient = StompJs.Stomp.over(socket);
-    const token = getToken();
+  stompClient.activate();
+}
 
-    stompClient.activate(
-        {
-            Authorization:
-                "Bearer " + token
-        },
-
-        function () {
-            subscribeToMessages(stompClient);
-        }
-    )
+export function getStompClient() {
+  return stompClient;
 }
