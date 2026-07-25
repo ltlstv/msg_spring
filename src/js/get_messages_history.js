@@ -25,13 +25,18 @@ export async function renderMessages() {
     return;
   }
 
-  messages.forEach((msg) => {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message');
-    messageDiv.innerHTML = `
+  messages.forEach((msg) => renderSingleMessage(msg,container))
+}
+
+export async function renderSingleMessage(msg,container) {
+
+  const messageDiv = document.createElement('div');
+
+  messageDiv.classList.add('message');
+  messageDiv.innerHTML = `
             <h3>${msg.sender}</h3>
             <p>${msg.message}</p>
         `;
-    container.appendChild(messageDiv);
-  });
+  container.appendChild(messageDiv);
+
 }

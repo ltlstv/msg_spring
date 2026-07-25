@@ -109,6 +109,8 @@ async function handleLogin() {
     saveToken(data.token);
     renderUserLayout(username);
     connect_ws();
+
+    localStorage.setItem("uname", username)
   } else {
     alert(data.message);
   }
