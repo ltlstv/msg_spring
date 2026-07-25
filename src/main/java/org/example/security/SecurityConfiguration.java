@@ -29,6 +29,7 @@ public class SecurityConfiguration {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/websocket/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
