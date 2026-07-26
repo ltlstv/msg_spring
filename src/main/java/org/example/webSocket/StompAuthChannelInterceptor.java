@@ -6,6 +6,7 @@ import org.example.dataBase.UserRepository;
 import org.example.security.JwtUtill;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
@@ -28,12 +29,14 @@ public class StompAuthChannelInterceptor implements ChannelInterceptor {
         if (accessor != null && StompCommand.CONNECT.equals(accessor.getCommand())) {
             String header = accessor.getFirstNativeHeader("Authorization");
 
-            if (header != null && header.startsWith("Bearer ") && jwtUtill.validateToken(header.substring(7))) {
-                int userId = jwtUtill.getUserIdFromToken(header.substring(7));
-                User user = userRepository.findById(userId).orElseThrow();
-
-                accessor.setUser(new UsernamePasswordAuthenticationToken(user, null, List.of()));
+            if (header == null || !header.startsWith("Bearer ") || !jwtUtill.validateToken(header.substring(7))) {
+                throw new MessagingException("Unauthorized CONNECT: missing or invalid token");
             }
+
+            int userId = jwtUtill.getUserIdFromToken(header.substring(7));
+            User user = userRepository.findById(userId).orElseThrow();
+
+            accessor.setUser(new UsernamePasswordAuthenticationToken(user, null, List.of()));
         }
         return message;
     }

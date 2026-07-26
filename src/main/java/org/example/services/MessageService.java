@@ -29,16 +29,15 @@ public class MessageService {
             return new MessageResponse.Text("Receiver user not found");
         }
 
-        messagesRepository.save(Messages.builder().sender(userSender).recipient(userReceiver).message(messageRequest.message()).build());
+        Messages saved = messagesRepository.save(Messages.builder().sender(userSender).recipient(userReceiver).message(messageRequest.message()).build());
 
-        return new MessageResponse.SingleMessage(new MessageItem(-1, messageRequest.message(), userSender.getUsername()));
+        return new MessageResponse.SingleMessage(MessageItem.from(saved));
     }
 
     @Transactional(readOnly = true)
-    public MessageResponse getAllReceivedMessages() {
-        User currentUser = (User) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        List<MessageItem> receivedMessages = messagesRepository.findByRecipientId(currentUser.getId()).stream().map(MessageItem::from).toList();
+    public MessageResponse getAllChatMessages() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<MessageItem> receivedMessages = messagesRepository.findByRecipientIdOrSenderIdOrderBySentAtAsc(currentUser.getId(), currentUser.getId()).stream().map(MessageItem::from).toList();
 
         if (receivedMessages.isEmpty()) {
             return new MessageResponse.Text("You have no incoming messages");

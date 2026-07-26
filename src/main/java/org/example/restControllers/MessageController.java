@@ -20,7 +20,7 @@ public class MessageController {
 
     @GetMapping("/get-message-history")
     public MessageResponse readMessages() {
-        return messageService.getAllReceivedMessages();
+        return messageService.getAllChatMessages();
     }
 
 }

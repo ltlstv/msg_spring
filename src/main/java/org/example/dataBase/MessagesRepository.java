@@ -8,5 +8,4 @@ import java.util.List;
 public interface MessagesRepository extends JpaRepository<Messages, Integer> {
     List<Messages> findBySenderId(int senderId);
     List<Messages> findByRecipientId(int recipientId);
-
-}
+    List<Messages> findByRecipientIdOrSenderIdOrderBySentAtAsc(int recipientId, int senderId);}

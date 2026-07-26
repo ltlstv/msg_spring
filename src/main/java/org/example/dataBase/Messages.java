@@ -2,8 +2,10 @@ package org.example.dataBase;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 @Entity
 @Builder
@@ -26,4 +28,8 @@ public class Messages implements Serializable {
     private User recipient;
 
     private String message;
+
+    @CreationTimestamp
+    @Column(name = "sent_at", updatable = false)
+    private Instant sentAt;
 }
