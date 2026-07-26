@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1599c19-5988-444e-889f-1fa4b487987b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/js/subscriptions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/ws_connection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/auth_board.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/auth_board.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/get_all_user_messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/get_messages_history.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/message_board.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/message_board.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/send_message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/send_message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/subscriptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/subscriptions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +61,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "C:\\Users\\22866\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -95,6 +91,7 @@
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b1599c19-5988-444e-889f-1fa4b487987b" name="Changes" comment="" />
@@ -104,7 +101,8 @@
       <updated>1783286801725</updated>
       <workItem from="1783286802812" duration="10401000" />
       <workItem from="1783713369554" duration="10962000" />
-      <workItem from="1784140315839" duration="8523000" />
+      <workItem from="1784140315839" duration="9217000" />
+      <workItem from="1785013821307" duration="5116000" />
     </task>
     <servers />
   </component>
