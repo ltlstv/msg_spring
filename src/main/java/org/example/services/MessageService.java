@@ -3,7 +3,7 @@ package org.example.services;
 import lombok.RequiredArgsConstructor;
 import org.example.dataBase.Messages;
 import org.example.dataBase.MessagesRepository;
-import org.example.dataBase.User;
+import org.example.dataBase.Users;
 import org.example.dataBase.UserRepository;
 import org.example.dto.messageDto.MessageItem;
 import org.example.dto.messageDto.MessageRequest;
@@ -22,8 +22,8 @@ public class MessageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public MessageResponse sendToUser(User userSender, MessageRequest messageRequest) {
-        User userReceiver = userRepository.findByUsername(messageRequest.recipientUser()).orElse(null);
+    public MessageResponse sendToUser(Users userSender, MessageRequest messageRequest) {
+        Users userReceiver = userRepository.findByUsername(messageRequest.recipientUser()).orElse(null);
 
         if (userReceiver == null) {
             return new MessageResponse.Text("Receiver user not found");
@@ -36,7 +36,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public MessageResponse getAllChatMessages() {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users currentUser = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<MessageItem> receivedMessages = messagesRepository.findByRecipientIdOrSenderIdOrderBySentAtAsc(currentUser.getId(), currentUser.getId()).stream().map(MessageItem::from).toList();
 
         if (receivedMessages.isEmpty()) {

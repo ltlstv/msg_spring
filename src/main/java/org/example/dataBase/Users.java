@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.security.Principal;
-import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
@@ -15,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User implements Serializable, Principal {
+public class Users implements Serializable, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,7 +25,7 @@ public class User implements Serializable, Principal {
     @Column(nullable = false)
     private String hashPassword;
 
-    private String avatarUrl;
+    private String avatarUrlId;
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Messages> sentMessages;

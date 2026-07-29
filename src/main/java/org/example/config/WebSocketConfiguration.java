@@ -1,6 +1,7 @@
-package org.example.webSocket;
+package org.example.config;
 
 import lombok.RequiredArgsConstructor;
+import org.example.webSocket.StompAuthChannelInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

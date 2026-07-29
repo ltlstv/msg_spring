@@ -5,7 +5,7 @@
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.servlet.http.HttpServletResponse;
     import lombok.RequiredArgsConstructor;
-    import org.example.dataBase.User;
+    import org.example.dataBase.Users;
     import org.example.dataBase.UserRepository;
     import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
     import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,7 +31,7 @@
 
                 if (jwtUtill.validateToken(token)) {
                     int userId = jwtUtill.getUserIdFromToken(token);
-                    User user = userRepository.findById(userId).orElse(null);
+                    Users user = userRepository.findById(userId).orElse(null);
 
                     if (user != null) {
                         UsernamePasswordAuthenticationToken authToken =

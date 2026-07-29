@@ -7,7 +7,7 @@ import org.example.services.MessageService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/messages")
+@RequestMapping("/api/user/messages")
 @RequiredArgsConstructor
 public class MessageController {
 

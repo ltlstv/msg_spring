@@ -1,6 +1,7 @@
-package org.example.security;
+package org.example.config;
 
 import lombok.RequiredArgsConstructor;
+import org.example.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,6 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/websocket/**").permitAll()
+                        .requestMatchers("/avatars/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

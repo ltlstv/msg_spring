@@ -1,7 +1,7 @@
 package org.example.webSocket;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dataBase.User;
+import org.example.dataBase.Users;
 import org.example.dto.messageDto.MessageRequest;
 import org.example.services.MessageService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,7 +19,7 @@ public class ChatController {
 
     @MessageMapping("/chat.send")
     public void send(MessageRequest messageRequest, Principal principal) {
-        User sender = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        Users sender = (Users) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
 
         simpMessagingTemplate.convertAndSendToUser(
                 messageRequest.recipientUser(),

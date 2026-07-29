@@ -1,7 +1,7 @@
 package org.example.webSocket;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dataBase.User;
+import org.example.dataBase.Users;
 import org.example.dataBase.UserRepository;
 import org.example.security.JwtUtill;
 import org.springframework.messaging.Message;
@@ -34,7 +34,7 @@ public class StompAuthChannelInterceptor implements ChannelInterceptor {
             }
 
             int userId = jwtUtill.getUserIdFromToken(header.substring(7));
-            User user = userRepository.findById(userId).orElseThrow();
+            Users user = userRepository.findById(userId).orElseThrow();
 
             accessor.setUser(new UsernamePasswordAuthenticationToken(user, null, List.of()));
         }
