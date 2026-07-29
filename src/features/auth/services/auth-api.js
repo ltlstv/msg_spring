@@ -1,7 +1,9 @@
+import { getToken } from '../../../services/utils.js';
+
 const API_BASE = 'http://localhost:8080';
 
 export async function register(username, password) {
-  const response = await fetch(`${API_BASE}/api/auth/register`, {
+  const response = await fetch(`${API_BASE}/api/user/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
@@ -11,7 +13,7 @@ export async function register(username, password) {
 }
 
 export async function login(username, password) {
-  const response = await fetch(`${API_BASE}/api/auth/login`, {
+  const response = await fetch(`${API_BASE}/api/user/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
@@ -20,13 +22,6 @@ export async function login(username, password) {
   return await response.json();
 }
 
-export function saveToken(token) {
-  localStorage.setItem('jwt', token);
-}
-
-export function getToken() {
-  return localStorage.getItem('jwt');
-}
 
 export function logout() {
   localStorage.removeItem('jwt');
@@ -34,7 +29,7 @@ export function logout() {
 
 export async function postUserPfpId(username) {
   const response = await fetch(
-    'http://localhost:8080/api/userbase/img/download',
+    'http://localhost:8080/api/user/profile/avatar',
     {
       method: 'POST',
       headers: {
@@ -52,7 +47,7 @@ export async function uploadUserPfpImg(file) {
   formData.append('file', file);
 
   const response = await fetch(
-    'http://localhost:8080/api/img/upload',
+    'http://localhost:8080/api/user/profile/avatar',
     {
       method: 'POST',
       headers: {

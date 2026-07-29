@@ -7,3 +7,11 @@ export async function getUserPfpUrl(username) {
 export function getCurrentUname() {
   return localStorage.getItem('uname');
 }
+
+export function saveToken(token) {
+  localStorage.setItem('jwt', token);
+}
+
+export function getToken() {
+  return localStorage.getItem('jwt');
+}

@@ -1,11 +1,11 @@
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { getToken } from './auth_api.js';
-import { subscribeToMessages } from './subscriptions.js';
+import { subscribeToMessages } from '../features/chat/services/subscriptions.js';
+import { getToken } from './utils.js';
 
 let stompClient;
 
-export function connect_ws() {
+export function connect_ws(onMessage) {
   const token = getToken();
 
   stompClient = new Client({
@@ -14,7 +14,7 @@ export function connect_ws() {
     },
     webSocketFactory: () => new SockJS('http://localhost:8080/websocket'),
     onConnect: () => {
-      subscribeToMessages(stompClient);
+      subscribeToMessages(stompClient, onMessage);
     },
   });
 

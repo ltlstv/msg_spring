@@ -1,5 +1,5 @@
-import { getToken } from './auth_api';
-import { send_message } from './send_message';
+import { getToken } from '../../../services/utils.js';
+import { sendMessage } from './send-message';
 
 export function initMessageBoard() {
   const testButton = document.getElementById('test-button');
@@ -21,7 +21,7 @@ async function handleSendMessage() {
 
   if (!message || !getToken()) return false;
 
-  await send_message(recipientUser, message);
+  await sendMessage(recipientUser, message);
 
   document.getElementById('xtext-i').value = '';
 }

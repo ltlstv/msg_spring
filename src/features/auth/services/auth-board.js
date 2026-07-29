@@ -1,12 +1,12 @@
-import pfpPlaceholder from '../assets/img/pfp-placeholder.png';
-import { login, logout, register, saveToken, uploadUserPfpImg } from './auth_api';
-import { renderMessages } from './get_messages_history.js';
-import { connect_ws } from './ws_connection.js'
-import { popupPfp } from './utils';
+import pfpPlaceholder from '../../../assets/img/pfp-placeholder.png';
+import { saveToken } from '../../../services/utils.js';
+import { connect_ws } from '../../../services/ws-connection.js';
+import { renderMultipleMessages as renderMessages } from '../../chat/services/render-message.js';
+import { login, logout, register, uploadUserPfpImg } from './auth-api.js';
 
 let authFlagTest = 0;
 
-export function initAuthBoard() {
+export function initAuthBoard(onLogin) {
   const authFlagTestButton = document.getElementById('user-auth-btn');
 
   if (!authFlagTestButton) {
@@ -108,11 +108,13 @@ async function handleLogin() {
   if (data.token) {
     saveToken(data.token);
     renderUserLayout(username);
-    connect_ws();
-
     localStorage.setItem("uname", username)
+
+    onlogin()
+
   } else {
     alert(data.message);
+
   }
 }
 

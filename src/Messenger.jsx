@@ -1,9 +1,12 @@
-import './style.css';
-import { useEffect } from 'react';
+import './assets/style.css';
+import { useEffect, useState } from 'react';
 import maidenImg from './assets/img/maiden.png';
-import { initAuthBoard } from './js/auth_board';
-import { initMessageBoard } from './js/message_board';
-import { initTabsBoard } from './js/tabs_board';
+import { initAuthBoard } from './features/auth/services/auth-board';
+import { initTabsBoard } from './features/navi/services/tabs-board';
+import { sendMessage } from './features/chat/services/send-message';
+import { subscribeToMessages } from './features/chat/services/subscriptions';
+import { MessageList } from './features/chat/components/Message';
+import { connect_ws } from './services/ws-connection';
 
 const bgContainerStyle = {
   maxWidth: '1344px',
@@ -36,14 +39,32 @@ const floatingWindowStyle = {
 };
 
 const Messenger = () => {
+  const [messages, setMessages] = useState([]);
+
+  function addMessage(msg) {
+      setMessages((prev) => [...prev, msg]);
+  }
+
+  async function handleSendMessage() {
+      const recipientUser = document.getElementById('runame-i').value;
+      const message = document.getElementById('xtext-i').value;
+
+      if (!message) return;
+
+      const msg = await sendMessage(recipientUser, message);
+      if (msg) {
+        addMessage(msg);
+      }
+  }
+
   useEffect(() => {
-    const cleanupAuthBoard = initAuthBoard();
-    const cleanupMessageBoard = initMessageBoard();
+    const cleanupAuthBoard = initAuthBoard(() => {
+      connect_ws(addMessage)
+    });
     const cleanupTabsBoard = initTabsBoard();
 
     return () => {
       cleanupAuthBoard();
-      cleanupMessageBoard();
       cleanupTabsBoard();
     };
   }, []);
@@ -73,11 +94,11 @@ const Messenger = () => {
             Chat
           </div>
           <div id="dialogue-container" style={centeredStyle}>
-            <div id="message-container"></div>
+            <MessageList messages={messages} />
             <div id="message-input">
               <input type="text" id="runame-i" />
               <input type="text" id="xtext-i" />
-              <button type="button" id="test-button">
+              <button type="button" id="test-button" onClick={handleSendMessage}>
                 Send!
               </button>
             </div>
