@@ -1,6 +1,7 @@
 import pfpPlaceholder from '../../../assets/img/pfp-placeholder.png';
 import { saveToken } from '../../../services/utils.js';
 import { connect_ws } from '../../../services/ws-connection.js';
+import { renderMultipleMessages as renderMessages } from '../../chat/services/render-message.js';
 import { login, logout, register, uploadUserPfpImg } from './auth-api.js';
 
 let authFlagTest = 0;
@@ -15,14 +16,14 @@ export function initAuthBoard(onLogin) {
   const handleAuthFlagClick = async () => {
     authFlagTest = authFlagTest ^ 1;
     if (authFlagTest === 0) {
-      //renderGuestLayout();
+      renderGuestLayout();
     } else {
-      //renderUserLayout();
+      renderUserLayout();
     }
   };
 
   authFlagTestButton.addEventListener('click', handleAuthFlagClick);
-  //renderGuestLayout();
+  renderGuestLayout();
 
   return () => {
     authFlagTestButton.removeEventListener('click', handleAuthFlagClick);
@@ -58,7 +59,7 @@ function renderUserLayout(uname = 'Alice') {
 
   document.getElementById('logout-btn').addEventListener('click', () => {
     logout();
-    //renderGuestLayout();
+    renderGuestLayout();
     document.getElementById('message-container').innerHTML = '';
   });
 
@@ -106,7 +107,7 @@ async function handleLogin() {
 
   if (data.token) {
     saveToken(data.token);
-    //renderUserLayout(username);
+    renderUserLayout(username);
     localStorage.setItem("uname", username)
 
     onlogin()
@@ -125,7 +126,7 @@ async function handleRegister() {
 
   if (data.token) {
     saveToken(data.token);
-    //renderUserLayout(username);
+    renderUserLayout(username);
     connect_ws();
   } else {
     alert(data.message);

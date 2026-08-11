@@ -1,0 +1,24 @@
+{
+  "name": "msg_react",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rsbuild build",
+    "check": "biome check --write",
+    "dev": "rsbuild --open",
+    "format": "biome format --write",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^7.3.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sockjs-client": "^1.6.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.15",
+    "@rsbuild/core": "^2.1.6",
+    "@rsbuild/plugin-react": "^2.1.0"
+  }
+}
