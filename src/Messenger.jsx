@@ -1,12 +1,10 @@
 import './assets/style.css';
 import { useEffect, useState } from 'react';
 import maidenImg from './assets/img/maiden.png';
-import { initAuthBoard } from './features/auth/services/auth-board';
-import { initTabsBoard } from './features/navi/services/tabs-board';
-import { sendMessage } from './features/chat/services/messages-api';
-import { subscribeToMessages } from './features/chat/services/subscriptions';
-import { MessageList } from './features/chat/components/Message';
 import { AuthBoard } from './features/auth/components/AuthBoard';
+import { MessageList } from './features/chat/components/Message';
+import { sendMessage } from './features/chat/services/messages-api';
+import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
 
 const bgContainerStyle = {
@@ -44,29 +42,30 @@ const Messenger = () => {
   const [user, setUser] = useState(null);
 
   function addMessage(msg) {
-      setMessages((prev) => [...prev, msg]);
+    setMessages((prev) => [...prev, msg]);
+  }
+
+  function handleLogin(loggedInUser) {
+    setUser(loggedInUser);
+    connect_ws(addMessage);
   }
 
   async function handleSendMessage() {
-      const recipientUser = document.getElementById('runame-i').value;
-      const message = document.getElementById('xtext-i').value;
+    const recipientUser = document.getElementById('runame-i').value;
+    const message = document.getElementById('xtext-i').value;
 
-      if (!message) return;
+    if (!message) return;
 
-      const msg = await sendMessage(recipientUser, message);
-      if (msg) {
-        addMessage(msg);
-      }
+    const msg = await sendMessage(recipientUser, message);
+    if (msg) {
+      addMessage(msg);
+    }
   }
 
   useEffect(() => {
-    const cleanupAuthBoard = initAuthBoard(() => {
-      connect_ws(addMessage)
-    });
     const cleanupTabsBoard = initTabsBoard();
 
     return () => {
-      cleanupAuthBoard();
       cleanupTabsBoard();
     };
   }, []);
@@ -83,7 +82,14 @@ const Messenger = () => {
           <div id="user-container-header" className="app-window-header">
             Authorization
           </div>
-          <div id="user-container"><AuthBoard user={user} onLogin={setUser} onLogout={() => setUser(null)} style={centeredStyle} /></div>
+          <div id="user-container">
+            <AuthBoard
+              user={user}
+              onLogin={handleLogin}
+              onLogout={() => setUser(null)}
+              style={centeredStyle}
+            />
+          </div>
         </section>
 
         <section
@@ -100,7 +106,11 @@ const Messenger = () => {
             <div id="message-input">
               <input type="text" id="runame-i" />
               <input type="text" id="xtext-i" />
-              <button type="button" id="test-button" onClick={handleSendMessage}>
+              <button
+                type="button"
+                id="test-button"
+                onClick={handleSendMessage}
+              >
                 Send!
               </button>
             </div>
