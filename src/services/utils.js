@@ -15,3 +15,7 @@ export function saveToken(token) {
 export function getToken() {
   return localStorage.getItem('jwt');
 }
+
+export function removeToken() {
+  localStorage.setItem('jwt', null);
+}

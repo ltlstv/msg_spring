@@ -1,8 +1,8 @@
 import './assets/style.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import maidenImg from './assets/img/maiden.png';
 import { AuthBoard } from './features/auth/components/AuthBoard';
-import { MessageList } from './features/chat/components/Message';
+import { MessageList, MessageBoard } from './features/chat/components/Message';
 import { sendMessage } from './features/chat/services/messages-api';
 import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
@@ -38,28 +38,16 @@ const floatingWindowStyle = {
 };
 
 const Messenger = () => {
-  const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   function addMessage(msg) {
-    setMessages((prev) => [...prev, msg]);
-  }
+        setMessages((current) => [...current, msg]);
+    }
 
   function handleLogin(loggedInUser) {
     setUser(loggedInUser);
     connect_ws(addMessage);
-  }
-
-  async function handleSendMessage() {
-    const recipientUser = document.getElementById('runame-i').value;
-    const message = document.getElementById('xtext-i').value;
-
-    if (!message) return;
-
-    const msg = await sendMessage(recipientUser, message);
-    if (msg) {
-      addMessage(msg);
-    }
   }
 
   useEffect(() => {
@@ -102,18 +90,7 @@ const Messenger = () => {
             Chat
           </div>
           <div id="dialogue-container" style={centeredStyle}>
-            <MessageList messages={messages} />
-            <div id="message-input">
-              <input type="text" id="runame-i" />
-              <input type="text" id="xtext-i" />
-              <button
-                type="button"
-                id="test-button"
-                onClick={handleSendMessage}
-              >
-                Send!
-              </button>
-            </div>
+            <MessageBoard messages={messages} onMessageSent={addMessage} />
           </div>
         </section>
       </div>

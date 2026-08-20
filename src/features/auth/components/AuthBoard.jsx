@@ -1,10 +1,14 @@
 import { saveToken } from '../../../services/utils.js';
 import { login, logout, register } from '../services/auth-api.js';
+import { useRef } from 'react';
 
 export function GuestLayout({ onLogin }) {
+  const unameRef = useRef(null);
+  const upassRef = useRef(null);
+
   async function handleLogin() {
-    const username = document.getElementById('uname-i').value.trim();
-    const password = document.getElementById('upass-i').value.trim();
+    const username = unameRef.current.value.trim();
+    const password = upassRef.current.value.trim();
 
     const data = await login(username, password);
 
@@ -18,8 +22,8 @@ export function GuestLayout({ onLogin }) {
   }
 
   async function handleRegister() {
-    const username = document.getElementById('uname-i').value.trim();
-    const password = document.getElementById('upass-i').value.trim();
+    const username = unameRef.current.value.trim();
+    const password = upassRef.current.value.trim();
 
     const data = await register(username, password);
 
@@ -34,10 +38,10 @@ export function GuestLayout({ onLogin }) {
   return (  
     <>
       <div style={{ color: 'white' }}>
-        Username <input type="text" id="uname-i" />
+        Username <input ref={unameRef} type="text" id="uname-i" />
       </div>
       <div style={{ color: 'white' }}>
-        Password <input type="password" id="upass-i" />
+        Password <input ref={upassRef} type="password" id="upass-i" />
       </div>
       <button type="button" onClick={handleLogin} id="login-btn">
         Login!
