@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                         session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/user/auth/**").permitAll()
                         .requestMatchers("/websocket/**").permitAll()
                         .requestMatchers("/avatars/**").permitAll()
                         .anyRequest().authenticated()
