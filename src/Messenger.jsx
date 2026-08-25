@@ -2,13 +2,13 @@ import './assets/style.css';
 import { useEffect, useState, useRef } from 'react';
 import maidenImg from './assets/img/maiden.png';
 import { AuthBoard } from './features/auth/components/AuthBoard';
-import { MessageList, MessageBoard } from './features/chat/components/Message';
+import { MessageList, MessageBoard } from './features/chat/components/MessageBoard';
 import { sendMessage } from './features/chat/services/messages-api';
 import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
 
 const bgContainerStyle = {
-  maxWidth: '1344px',
+  maxWidth: '70%',
   height: 'auto',
   textAlign: 'center',
   position: 'absolute',
