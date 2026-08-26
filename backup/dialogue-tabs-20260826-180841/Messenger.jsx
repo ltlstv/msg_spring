@@ -1,8 +1,9 @@
 import './assets/style.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import maidenImg from './assets/img/maiden.png';
 import { AuthBoard } from './features/auth/components/AuthBoard';
-import { MessageBoard } from './features/chat/components/MessageBoard';
+import { MessageList, MessageBoard } from './features/chat/components/MessageBoard';
+import { sendMessage } from './features/chat/services/messages-api';
 import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
 
@@ -38,48 +39,15 @@ const floatingWindowStyle = {
 
 const Messenger = () => {
   const [user, setUser] = useState(null);
-  const [activeDialogueUser, setActiveDialogueUser] = useState(null);
-  const [dialogues, setDialogues] = useState({});
+  const [messages, setMessages] = useState([]);
 
-  function getDialogueUser(message) {
-    return message.recipientUser ?? message.sender;
-  }
-
-  function addMessage(message, options = {}) {
-    const dialogueUser = getDialogueUser(message);
-
-    if (!dialogueUser) {
-      return;
+  function addMessage(msg) {
+        setMessages((current) => [...current, msg]);
     }
-
-    setDialogues((current) => ({
-      ...current,
-      [dialogueUser]: {
-        user: dialogueUser,
-        messages: [...(current[dialogueUser]?.messages ?? []), message],
-      },
-    }));
-
-    if (options.activate) {
-      setActiveDialogueUser(dialogueUser);
-    } else {
-      setActiveDialogueUser((current) => current ?? dialogueUser);
-    }
-  }
-
-  function handleMessageSent(sentMessage) {
-    addMessage(sentMessage, { activate: true });
-  }
 
   function handleLogin(loggedInUser) {
     setUser(loggedInUser);
     connect_ws(addMessage);
-  }
-
-  function handleLogout() {
-    setUser(null);
-    setActiveDialogueUser(null);
-    setDialogues({});
   }
 
   useEffect(() => {
@@ -106,7 +74,7 @@ const Messenger = () => {
             <AuthBoard
               user={user}
               onLogin={handleLogin}
-              onLogout={handleLogout}
+              onLogout={() => setUser(null)}
               style={centeredStyle}
             />
           </div>
@@ -122,12 +90,7 @@ const Messenger = () => {
             Chat
           </div>
           <div id="dialogue-container" style={centeredStyle}>
-            <MessageBoard
-              activeDialogueUser={activeDialogueUser}
-              dialogues={dialogues}
-              onActiveDialogueUserChange={setActiveDialogueUser}
-              onMessageSent={handleMessageSent}
-            />
+            <MessageBoard messages={messages} onMessageSent={addMessage} />
           </div>
         </section>
       </div>
