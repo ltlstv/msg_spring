@@ -19,6 +19,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
     "@rsbuild/core": "^2.1.6",
+    "@rsbuild/plugin-basic-ssl": "^1.2.3",
     "@rsbuild/plugin-react": "^2.1.0"
   }
 }

@@ -43,6 +43,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.2vw;
+  text-shadow: 1px 1px 0px darkblue;
 }
 
 #dialogue-window {
@@ -184,4 +185,11 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+::selection {
+  background: blue;
+  color: white;
+  text-decoration: white wavy underline;
+  text-shadow: 1px 1px 0px darkblue;
 }

@@ -1,4 +1,4 @@
-import { saveToken } from '../../../services/utils.js';
+import { createIdentity, checkIdentity, saveToken, protectIdentity} from '../../../services/utils.js';
 import { login, logout, register } from '../services/auth-api.js';
 import { useRef } from 'react';
 
@@ -24,6 +24,13 @@ export function GuestLayout({ onLogin }) {
   async function handleRegister() {
     const username = unameRef.current.value.trim();
     const password = upassRef.current.value.trim();
+
+    //UNDER CONSTRUCION
+    const identityKeyPair = await createIdentity();
+    console.log(await checkIdentity(identityKeyPair));
+    const protectedIdentity = await protectIdentity(identityKeyPair.privateKey, "chickenJockey!");
+    console.log(protectedIdentity);
+    //UNDER CONSTRUCION
 
     const data = await register(username, password);
 
