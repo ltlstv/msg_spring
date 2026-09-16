@@ -20,22 +20,22 @@ export function removeToken() {
   localStorage.setItem('jwt', null);
 }
 
-export function signRequest(keyPair, payload) {
+export async function signRequest(privateKey, payload) {
   return window.crypto.subtle.sign({
     name: 'RSA-PSS',
     saltLength: 32,
   },
-  keyPair.privateKey,
+  privateKey,
   new TextEncoder().encode(payload),
 );
 }
 
-export function verifyRequest(keyPair, payload, signature) {
+export async function verifyRequest(publicKey, payload, signature) {
   return window.crypto.subtle.verify({
     name: 'RSA-PSS',
     saltLength: 32,
   },
-  keyPair.publicKey,
+  publicKey,
   signature,
   new TextEncoder().encode(payload)
 )
@@ -74,6 +74,17 @@ export function processBuffer(buffer) {
   return window.btoa(binary);
 }
 
+export function bufferFromBase64(base64) {
+  const binary = window.atob(base64);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    return bytes;
+}
+
 export async function deriveProtectionKey_AES(password, salt){
   const passwordKey = await window.crypto.subtle.importKey(
     "raw",
@@ -100,7 +111,7 @@ export async function deriveProtectionKey_AES(password, salt){
   );
 }
 
-export async function protectIdentity(key,password) {
+export async function toProtectIdentity(key,password) {
   
   const salt = window.crypto.getRandomValues(new Uint8Array(16));
 
@@ -120,8 +131,61 @@ export async function protectIdentity(key,password) {
     );
 
   return {
-    privateKey: processBuffer(encryptedKey),
+    privateKey: encryptedKey,
     salt: salt,
     iv: iv,
   };
 }
+
+export async function toExposeIdentity(protectedIdentity,password) {
+
+  const encryptedKey = protectedIdentity.privateKey;
+  const salt = protectedIdentity.salt;
+  const iv = protectedIdentity.iv;
+  const aesKey = await deriveProtectionKey_AES(password,salt);
+
+  const keyBuffer = await crypto.subtle.decrypt(
+    {
+      name: "AES-GCM",
+      iv: iv
+    },
+    aesKey,
+    encryptedKey
+  );
+
+  const privateKey = await importPrivateKey(keyBuffer);
+
+  return privateKey;
+
+}
+
+export async function importPrivateKey(keyBuffer){
+  const privateKey = await crypto.subtle.importKey(
+    "pkcs8",
+    keyBuffer,
+    {
+      name: "RSA-PSS",
+      hash: "SHA-256"
+    },
+    false,
+    ["sign"]
+  );
+
+  return privateKey;
+}
+
+export async function importPublicKey(keyBuffer){
+  const publicKey = await crypto.subtle.importKey(
+    "spki",
+    keyBuffer,
+    {
+      name: "RSA-PSS",
+      hash: "SHA-256"
+    },
+    false,
+    ["verify"]
+  )
+  
+  return publicKey;
+}
+
