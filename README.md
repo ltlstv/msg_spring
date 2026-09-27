@@ -12,7 +12,7 @@ App will read from *./ssl/fullchain.pem* and *./ssl/privkey.pem.* There are **tw
 
 1. **use [mkcert](github.com/FiloSottile/mkcert)** like in example where *example.com* is your prefered domain:
 
-`-key-file ./ssl/privkey.pem -cert-file ssl/fullchain.pem example.com *.example.com`
+`mkcert -key-file ./ssl/privkey.pem -cert-file ssl/fullchain.pem example.com *.example.com`
 
 don't forget to change your **hosts** file to use domain on local machine (usually *127.0.0.1 example.com*)
 
