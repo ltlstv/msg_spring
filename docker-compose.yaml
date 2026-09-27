@@ -1,0 +1,62 @@
+name: datachan
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - msg-front
+      - msg-relay
+    networks:
+      - frontend
+      - backend
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - frontend
+
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - backend
+  msg-front:
+    build: ./msg-front
+    networks:
+      - frontend
+    environment:
+      API_BASE_URL: datachan.dev
+
+  msg-relay:
+    build: ./msg-relay
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_CORS_ALLOWED_ORIGIN: datachan.dev
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  postgres_data:
