@@ -5,7 +5,6 @@ import { AuthBoard } from './features/auth/components/AuthBoard';
 import { MessageBoard } from './features/chat/components/MessageBoard';
 import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
-import { getCurrentUname } from './services/utils';
 
 const bgContainerStyle = {
   maxWidth: '70%',
@@ -37,12 +36,11 @@ const floatingWindowStyle = {
   backgroundColor: '#3b3b3bb2',
 };
 
-const Messenger = () => {
+const BlogPage = () => {
   const [user, setUser] = useState(null);
   const [activeDialogueUser, setActiveDialogueUser] = useState(null);
   const [dialogues, setDialogues] = useState({});
 
-  /// messaging
   function getDialogueUser(message) {
     return message.recipientUser ?? message.sender;
   }
@@ -72,9 +70,7 @@ const Messenger = () => {
   function handleMessageSent(sentMessage) {
     addMessage(sentMessage, { activate: true });
   }
-  /// messaging
 
-  /// login and logout
   function handleLogin(loggedInUser) {
     setUser(loggedInUser);
     connect_ws(addMessage);
@@ -85,9 +81,7 @@ const Messenger = () => {
     setActiveDialogueUser(null);
     setDialogues({});
   }
-  /// login and logout
 
-  /// set active tab on default
   useEffect(() => {
     const cleanupTabsBoard = initTabsBoard();
 
@@ -95,8 +89,7 @@ const Messenger = () => {
       cleanupTabsBoard();
     };
   }, []);
-  /// set active tab on default
-  
+
   return (
     <div id="bg-container" style={bgContainerStyle}>
       <div id="chat-layout">
@@ -146,45 +139,12 @@ const Messenger = () => {
         <li data-msg-tab-target="#dialogue-window" style={tabStyle}>
           Chat
         </li>
-        <li data-msg-tab-target="#music-window" style={tabStyle}>
-          Music
-        </li>
-        <li data-msg-tab-target="#diagn-window" style={tabStyle}>
-          DGNSTCS
-        </li>
       </ul>
 
       <img id="maiden-img" src={maidenImg} alt="" />
-
-      <div
-        id="music-window"
-        style={floatingWindowStyle}
-        className="app-window"
-        data-msg-tab-content
-      >
-        <div id="music-window-header" className="app-window-header">
-          Music player
-        </div>
-        <div id="music-container"></div>
-      </div>
-
-      <div
-        id="diagn-window"
-        style={floatingWindowStyle}
-        className="app-window"
-        data-msg-tab-content
-      >
-        <div id="diagn-window-header" className="app-window-header">
-          Diagnostics
-        </div>
-        <div id="diagn-container">
-          <button type="button" id="user-auth-btn">
-            Change auth flag
-          </button>
-        </div>
-      </div>
+     
     </div>
   );
 };
 
-export default Messenger;
+export default BlogPage;

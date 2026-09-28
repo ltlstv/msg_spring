@@ -21,7 +21,7 @@ export default defineConfig({
 
   dev: {
     client: {
-      protocol: 'wss',
+      protocol: 'ws',
       host: host,
       port: 443,
       path: '/rsbuild-hmr',
