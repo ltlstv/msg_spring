@@ -9,8 +9,7 @@
 ## How to compose?
 ### Step 0: datachan.dev
 
-by default all the instructions apply to datachan.dev domain, **change the name on the way if you use different domain**
-
+by default all the instructions apply to datachan.dev domain, to use custom domain, *change DOMAIN_NAME in .env file*
 
 ### Step 1: obtain SSL certificates
 
