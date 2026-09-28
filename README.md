@@ -20,6 +20,10 @@ App will read from *./ssl/fullchain.pem* and *./ssl/privkey.pem.* There are **tw
 
 `mkcert -key-file ./ssl/privkey.pem -cert-file ssl/fullchain.pem datachan.dev *.datachan.dev`
 
+then install certificates
+
+`mkcert --install`
+
 don't forget to change your **hosts** file to use domain on local machine (usually *127.0.0.1 example.com*)
 
 2. **use certbot**
