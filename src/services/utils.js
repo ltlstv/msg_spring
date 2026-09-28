@@ -1,7 +1,9 @@
+const API_BASE = process.env.API_BASE_URL;
+
 export async function getUserPfpUrl(username) {
   const data = await postUserPfpId(username);
 
-  return 'http://localhost:8080/src/assets/pfp/' + data.imgId + '.jpg';
+  return `${API_BASE_URL}/src/assets/pfp/` + data.imgId + '.jpg';
 }
 
 export function getCurrentUname() {

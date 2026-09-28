@@ -1,6 +1,6 @@
 import { getToken } from '../../../services/utils.js';
 
-const API_BASE = 'http://localhost:8080';
+const API_BASE = process.env.API_BASE_URL;
 
 export async function register(username, password) {
   const response = await fetch(`${API_BASE}/api/user/auth/register`, {
@@ -29,7 +29,7 @@ export function logout() {
 
 export async function postUserPfpId(username) {
   const response = await fetch(
-    'http://localhost:8080/api/user/profile/avatar',
+    `${API_BASE}/api/user/profile/avatar`,
     {
       method: 'POST',
       headers: {
@@ -47,7 +47,7 @@ export async function uploadUserPfpImg(file) {
   formData.append('file', file);
 
   const response = await fetch(
-    'http://localhost:8080/api/user/profile/avatar',
+    `${API_BASE}/api/user/profile/avatar`,
     {
       method: 'POST',
       headers: {

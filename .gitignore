@@ -1,14 +1,5 @@
-# Local
-.DS_Store
-*.local
-*.log*
-
-# Dist
+#Node
 node_modules
-dist/
-
-# Profile
-.rspack-profile-*/
 
 # IDE
 .vscode/*

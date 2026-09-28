@@ -3,6 +3,7 @@ import SockJS from 'sockjs-client';
 import { subscribeToMessages } from '../features/chat/services/subscriptions.js';
 import { getToken } from './utils.js';
 
+const API_BASE = process.env.API_BASE_URL;
 let stompClient;
 
 export function connect_ws(onMessage) {
@@ -12,7 +13,7 @@ export function connect_ws(onMessage) {
     connectHeaders: {
       Authorization: `Bearer ${token}`,
     },
-    webSocketFactory: () => new SockJS('http://localhost:8080/websocket'),
+    webSocketFactory: () => new SockJS(`${API_BASE}/websocket`),
     onConnect: () => {
       subscribeToMessages(stompClient, onMessage);
     },

@@ -1,7 +1,7 @@
 import { getCurrentUname, getToken } from '../../../services/utils.js';
 import { getStompClient } from '../../../services/ws-connection.js';
 
-const API_BASE = 'http://localhost:8080';
+const API_BASE = process.env.API_BASE_URL;
 
 export async function getMessagesHistory() {
   const token = getToken();
