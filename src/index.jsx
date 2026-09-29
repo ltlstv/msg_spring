@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Messenger from './Messenger';
+import MessengerPage from './MessengerPage';
 import BlogPage from './BlogPage';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Messenger />} />
+        <Route path="/" element={<MessengerPage />} />
         <Route path="/:username/blog" element={<BlogPage />} />
       </Routes>
     </BrowserRouter>

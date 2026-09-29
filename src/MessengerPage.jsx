@@ -37,7 +37,7 @@ const floatingWindowStyle = {
   backgroundColor: '#3b3b3bb2',
 };
 
-const Messenger = () => {
+const MessengerPage = () => {
   const [user, setUser] = useState(null);
   const [activeDialogueUser, setActiveDialogueUser] = useState(null);
   const [dialogues, setDialogues] = useState({});
@@ -187,4 +187,4 @@ const Messenger = () => {
   );
 };
 
-export default Messenger;
+export default MessengerPage;

@@ -37,62 +37,22 @@ const floatingWindowStyle = {
 };
 
 const BlogPage = () => {
-  const [user, setUser] = useState(null);
-  const [activeDialogueUser, setActiveDialogueUser] = useState(null);
-  const [dialogues, setDialogues] = useState({});
-
-  function getDialogueUser(message) {
-    return message.recipientUser ?? message.sender;
-  }
-
-  function addMessage(message, options = {}) {
-    const dialogueUser = getDialogueUser(message);
-
-    if (!dialogueUser) {
-      return;
-    }
-
-    setDialogues((current) => ({
-      ...current,
-      [dialogueUser]: {
-        user: dialogueUser,
-        messages: [...(current[dialogueUser]?.messages ?? []), message],
-      },
-    }));
-
-    if (options.activate) {
-      setActiveDialogueUser(dialogueUser);
-    } else {
-      setActiveDialogueUser((current) => current ?? dialogueUser);
-    }
-  }
-
-  function handleMessageSent(sentMessage) {
-    addMessage(sentMessage, { activate: true });
-  }
-
-  function handleLogin(loggedInUser) {
-    setUser(loggedInUser);
-    connect_ws(addMessage);
-  }
-
-  function handleLogout() {
-    setUser(null);
-    setActiveDialogueUser(null);
-    setDialogues({});
-  }
+  const { username } = useParams();
+  const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    const cleanupTabsBoard = initTabsBoard();
+    fetch(`/api/user/blog/${username}`)
+      .then(r => r.json())
+      .then(setBlog());
+  }, [username]);
 
-    return () => {
-      cleanupTabsBoard();
-    };
-  }, []);
+  return <BlogRenderer data={blog} />;
+}
 
+const BlogRenderer = () => {
   return (
     <div id="bg-container" style={bgContainerStyle}>
-      <div id="chat-layout">
+      <div id="blog-layout">
         <section
           id="user-window"
           style={appWindowStyle}
