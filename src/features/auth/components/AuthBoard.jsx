@@ -2,6 +2,7 @@ import { createIdentity, checkIdentity, saveToken, toProtectIdentity, bufferFrom
 import { login, logout, register } from '../services/auth-api.js';
 import { use, useRef, useState } from 'react';
 import Modal from '../../../assets/components/Modal';
+import './AuthBoard.css';
 
 const modalInputStyle = {
   display: 'flex',
@@ -188,25 +189,25 @@ export function GuestLayout({ onLogin }) {
 
   return (  
     <>
-      <div style = {{display: 'flex', flexDirection: 'row' }}>
-        <div style = {{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: '1vw'}}>
-          <div style={{ color: 'white' }}>
+      <div className="auth-form-row">
+        <div className="auth-form-labels">
+          <div className="auth-form-label">
             Key 
           </div>
-          <div style={{ color: 'white' }}>
+          <div className="auth-form-label">
             Username 
           </div>
-          <div style={{ color: 'white' }}>
+          <div className="auth-form-label">
             Password 
           </div>
         </div>
-        <div style = {{display: 'flex', flexDirection: 'column'}}>
+        <div className="auth-form-inputs">
           <input ref={pkeyRef} type="text" id="pkey-i" />
           <input ref={unameRef} type="text" id="uname-i" />
           <input ref={upassRef} type="password" id="upass-i" />
         </div>
       </div>
-      <div style = {{display: 'flex', flexDirection: 'row' }}>
+      <div className="auth-form-actions">
       <button type="button" onClick={handleLogin} id="login-btn">
         Login!
       </button>
@@ -214,7 +215,7 @@ export function GuestLayout({ onLogin }) {
         Register!
       </button>
       </div>
-      <label style = {{color: 'lightgray', marginTop: '3vh'}}>
+      <label className="auth-key-login">
         <input
           type="checkbox" checked={isKeyLogin} onChange={(e) => setKeyLogin(e.target.checked)}
         />
@@ -247,7 +248,7 @@ export function UserLayout({ username, pfpSrc, onLogout }) {
         id="user-pfp"
         src={pfpSrc}
         alt="pfp"
-        style={{ maxWidth: 150, maxHeight: 150 }}
+        className="user-pfp"
       />
       <div className="popup-column" id="popup-user-pfp">
         <button type="button" id="pfp-input-btn">
@@ -259,7 +260,7 @@ export function UserLayout({ username, pfpSrc, onLogout }) {
           accept="image/png,image/jpeg,image/webp"
         />
       </div>
-      <div style={{ color: 'white' }}>{username}</div>
+      <div className="auth-username">{username}</div>
       <button type="button" onClick={handleLogout} id="logout-btn">
         Logout
       </button>

@@ -7,8 +7,12 @@ body {
   background: url("./img/blue_waves-bg_fhd.png");
 }
 
-#bg-container {
-  position: relative;
+.bg-container {
+  max-width: 70%;
+  height: auto;
+  text-align: center;
+  position: absolute;
+  display: flex;
   top: 0;
   bottom: 0;
   left: 0;
@@ -19,53 +23,8 @@ body {
   border: 0.3vw double #052698;
 }
 
-#chat-layout {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.01vw;
-  align-items: stretch;
-
-  position: absolute;
-
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  max-height: 50%;
-  z-index: 2;
-}
-
-#user-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  gap: 0.2vw;
-  text-shadow: 1px 1px 0px darkblue;
-}
-
-#dialogue-window {
+.dialogue-window-panel {
   overflow: hidden;
-}
-
-#dialogue-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-}
-
-#dialogue-tabs {
-  flex: 0 0 auto;
-}
-
-#dialogue-windows {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 0;
 }
 
 .dialogue-window {
@@ -75,23 +34,13 @@ body {
   min-height: 0;
 }
 
-#message-container {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-#message-input {
-  flex: 0 0 auto;
-}
-
-#maiden-img {
+.maiden-img {
   position: absolute;
   position-anchor: --bg-container;
   right: 0;
   bottom: 0;
   z-index: 1;
-  max-height: 75%;
+  max-height: 70%;
 }
 
 .message {
@@ -107,6 +56,25 @@ body {
   display: flex;
   flex-direction: column;
   border: 2px solid rgb(219, 219, 219);
+  background-color: #3b3b3bb2;
+  width: 95%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.msg-tabs li {
+  padding: 0.5em;
+  border: 0.5em solid rgb(219, 219, 219);
+  background-color: #3b3b3bb2;
+}
+
+.floating-window {
+  display: none;
+  width: 18vw;
+  height: 18vh;
+  background-color: #3b3b3bb2;
 }
 
 .msg-tabs {
@@ -138,22 +106,17 @@ div {
 }
 
 @media (max-width: 599px) {
-  #chat-layout {
-    grid-template-columns: 1fr;
-    anchor-name: --chat-layout;
-  }
-
-  #user-window[data-msg-tab-content],
-  #dialogue-window[data-msg-tab-content],
-  #music-window[data-msg-tab-content],
-  #diagn-window[data-msg-tab-content] {
+  .user-window[data-msg-tab-content],
+  .dialogue-window-panel[data-msg-tab-content],
+  .music-window[data-msg-tab-content],
+  .diagn-window[data-msg-tab-content] {
     display: none;
   }
 
-  #user-window.active-tab[data-msg-tab-content],
-  #dialogue-window.active-tab[data-msg-tab-content],
-  #music-window.active-tab[data-msg-tab-content],
-  #diagn-window.active-tab[data-msg-tab-content] {
+  .user-window.active-tab[data-msg-tab-content],
+  .dialogue-window-panel.active-tab[data-msg-tab-content],
+  .music-window.active-tab[data-msg-tab-content],
+  .diagn-window.active-tab[data-msg-tab-content] {
     display: flex;
   }
 

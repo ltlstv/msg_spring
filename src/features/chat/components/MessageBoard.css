@@ -1,0 +1,27 @@
+.dialogue-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.dialogue-tabs {
+  flex: 0 0 auto;
+}
+
+.dialogue-windows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.message-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.message-input {
+  flex: 0 0 auto;
+}

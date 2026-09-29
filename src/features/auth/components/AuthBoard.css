@@ -1,0 +1,42 @@
+.user-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2vw;
+  text-shadow: 1px 1px 0px darkblue;
+}
+
+.auth-form-row,
+.auth-form-actions {
+  display: flex;
+  flex-direction: row;
+}
+
+.auth-form-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 1vw;
+}
+
+.auth-form-label,
+.auth-username {
+  color: white;
+}
+
+.auth-form-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-key-login {
+  color: lightgray;
+  margin-top: 3vh;
+}
+
+.user-pfp {
+  max-width: 150px;
+  max-height: 150px;
+}

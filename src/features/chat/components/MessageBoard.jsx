@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { sendMessage } from '../services/messages-api';
+import './MessageBoard.css';
 
 export function Message({ sender, message }) {
   return (
@@ -12,7 +13,7 @@ export function Message({ sender, message }) {
 
 export function MessageList({ messages }) {
   return (
-    <div id="message-container">
+    <div id="message-container" className="message-container">
       {messages.map((message, index) => (
         <Message
           key={message.id ?? `${message.sender}-${message.createdAt ?? index}`}
@@ -29,12 +30,12 @@ export function MessageInput({ handleSendMessage }) {
   const xtextRef = useRef(null);
 
   return (
-    <div id="message-input">
+    <div id="message-input" className="message-input">
       <input ref={runameRef} type="text" id="runame-i" />
       <input ref={xtextRef} type="text" id="xtext-i" />
       <button
         type="button"
-        id="test-button"
+        id="sendMessage-button"
         onClick={() =>
           handleSendMessage(runameRef.current.value, xtextRef.current.value)
         }
@@ -64,7 +65,7 @@ export function MessageBoard({
 
   return (
     <>
-      <div id="dialogue-tabs">
+      <div id="dialogue-tabs" className="dialogue-tabs">
         {Object.keys(dialogues).map((username) => (
           <button
             key={username}
@@ -76,7 +77,7 @@ export function MessageBoard({
           </button>
         ))}
       </div>
-      <div id="dialogue-windows">
+      <div id="dialogue-windows" className="dialogue-windows">
         {activeDialogueUser && (
           <section
             key={activeDialogueUser}

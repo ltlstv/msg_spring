@@ -1,4 +1,5 @@
 import './assets/style.css';
+import './assets/MessengerPage.css';
 import { useEffect, useState } from 'react';
 import maidenImg from './assets/img/maiden.png';
 import { AuthBoard } from './features/auth/components/AuthBoard';
@@ -7,35 +8,6 @@ import { initTabsBoard } from './features/navi/services/tabs-board';
 import { connect_ws } from './services/ws-connection';
 import { getCurrentUname } from './services/utils';
 
-const bgContainerStyle = {
-  maxWidth: '70%',
-  height: 'auto',
-  textAlign: 'center',
-  position: 'absolute',
-  display: 'flex',
-};
-
-const appWindowStyle = {
-  backgroundColor: '#3b3b3bb2',
-  width: '95%',
-};
-
-const centeredStyle = {
-  textAlign: 'center',
-};
-
-const tabStyle = {
-  padding: '0.5em',
-  border: '0.5em solid rgb(219, 219, 219)',
-  backgroundColor: '#3b3b3bb2',
-};
-
-const floatingWindowStyle = {
-  display: 'none',
-  width: '18vw',
-  height: '18vh',
-  backgroundColor: '#3b3b3bb2',
-};
 
 const MessengerPage = () => {
   const [user, setUser] = useState(null);
@@ -96,39 +68,45 @@ const MessengerPage = () => {
     };
   }, []);
   /// set active tab on default
+
+  /// auth check
+  useEffect(() => {
+    const currentUname = getCurrentUname();
+    if(currentUname!='' && currentUname){
+      setUser({ username: currentUname });
+    }
+  }, []);
+  /// auth check
   
   return (
-    <div id="bg-container" style={bgContainerStyle}>
-      <div id="chat-layout">
+    <div id="bg-container" className="bg-container">
+      <div id="chat-layout" className="chat-layout">
         <section
           id="user-window"
-          style={appWindowStyle}
-          className="app-window active-tab"
+          className="app-window user-window active-tab"
           data-msg-tab-content
         >
           <div id="user-container-header" className="app-window-header">
             Authorization
           </div>
-          <div id="user-container">
+          <div id="user-container" className="user-container">
             <AuthBoard
               user={user}
               onLogin={handleLogin}
               onLogout={handleLogout}
-              style={centeredStyle}
             />
           </div>
         </section>
 
         <section
           id="dialogue-window"
-          className="app-window"
-          style={appWindowStyle}
+          className="app-window dialogue-window-panel"
           data-msg-tab-content
         >
           <div id="dialogue-container-header" className="app-window-header">
             Chat
           </div>
-          <div id="dialogue-container" style={centeredStyle}>
+          <div id="dialogue-container" className="dialogue-container text-center">
             <MessageBoard
               activeDialogueUser={activeDialogueUser}
               dialogues={dialogues}
@@ -140,26 +118,25 @@ const MessengerPage = () => {
       </div>
 
       <ul className="msg-tabs">
-        <li data-msg-tab-target="#user-window" style={tabStyle}>
+        <li data-msg-tab-target="#user-window">
           User
         </li>
-        <li data-msg-tab-target="#dialogue-window" style={tabStyle}>
+        <li data-msg-tab-target="#dialogue-window">
           Chat
         </li>
-        <li data-msg-tab-target="#music-window" style={tabStyle}>
+        <li data-msg-tab-target="#music-window">
           Music
         </li>
-        <li data-msg-tab-target="#diagn-window" style={tabStyle}>
+        <li data-msg-tab-target="#diagn-window">
           DGNSTCS
         </li>
       </ul>
 
-      <img id="maiden-img" src={maidenImg} alt="" />
+      <img id="maiden-img" className="maiden-img" src={maidenImg} alt="" />
 
       <div
         id="music-window"
-        style={floatingWindowStyle}
-        className="app-window"
+        className="app-window floating-window music-window"
         data-msg-tab-content
       >
         <div id="music-window-header" className="app-window-header">
@@ -170,8 +147,7 @@ const MessengerPage = () => {
 
       <div
         id="diagn-window"
-        style={floatingWindowStyle}
-        className="app-window"
+        className="app-window floating-window diagn-window"
         data-msg-tab-content
       >
         <div id="diagn-window-header" className="app-window-header">

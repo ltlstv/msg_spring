@@ -1,0 +1,23 @@
+.chat-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.01vw;
+  align-items: stretch;
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-height: 50%;
+  z-index: 2;
+}
+
+@media (max-width: 599px) {
+  .chat-layout {
+    grid-template-columns: 1fr;
+    anchor-name: --chat-layout;
+  }
+}

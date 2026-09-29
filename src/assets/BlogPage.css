@@ -1,0 +1,27 @@
+.blog-layout {
+  display: grid;
+  grid-template-rows: 30% 1fr;
+  gap: 0.5vw;
+  align-items: stretch;
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-height: 95%;
+  z-index: 2;
+}
+
+@media (max-width: 599px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+    anchor-name: --chat-layout;
+  }
+}
+
+.author-window {
+    position: absolute;
+}

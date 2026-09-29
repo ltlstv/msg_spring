@@ -1,0 +1,27 @@
+.topic-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.topic-tabs {
+  flex: 0 0 auto;
+}
+
+.topic-windows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.blogpost-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.blogpost-input {
+  flex: 0 0 auto;
+}
