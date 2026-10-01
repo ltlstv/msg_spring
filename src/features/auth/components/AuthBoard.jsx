@@ -1,6 +1,7 @@
-import { createIdentity, checkIdentity, saveToken, toProtectIdentity, bufferFromBase64, processBuffer, toExposeIdentity, signRequest, importPrivateKey, importPublicKey, verifyRequest} from '../../../services/utils.js';
+import { createIdentity, saveToken, toProtectIdentity, bufferFromBase64, processBuffer, toExposeIdentity, signRequest, importPrivateKey, importPublicKey, verifyRequest, getUserPfpURL, uploadUserPfp } from '../../../services/utils.js';
 import { login, logout, register } from '../services/auth-api.js';
-import { use, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import pfpPlaceholder from '../../../assets/img/pfp-placeholder.png';
 import Modal from '../../../assets/components/Modal';
 import './AuthBoard.css';
 
@@ -236,7 +237,55 @@ export function GuestLayout({ onLogin }) {
   );
 }
 
-export function UserLayout({ username, pfpSrc, onLogout }) {
+export function UserLayout({ username, pfpURL, onLogout }) {
+  const fileInputRef = useRef(null);
+  const [avatarUrl, setAvatarUrl] = useState(pfpURL || pfpPlaceholder);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [showAvatarPopup, setShowAvatarPopup] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    getUserPfpURL()
+      .then((url) => {
+        if (active) setAvatarUrl(url || pfpPlaceholder);
+      })
+      .catch((error) => {
+        console.error('Could not load profile avatar:', error);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [username]);
+
+  async function handleAvatarChange(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      alert('Choose a JPEG or PNG image.');
+      event.target.value = '';
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      alert('The image must be 8 MB or smaller.');
+      event.target.value = '';
+      return;
+    }
+
+    setUploadingAvatar(true);
+    try {
+      const url = await uploadUserPfp(file);
+      if (url) setAvatarUrl(url);
+    } catch (error) {
+      alert(error.message || 'Avatar upload failed.');
+    } finally {
+      setUploadingAvatar(false);
+      event.target.value = '';
+    }
+  }
+
   function handleLogout() {
     logout();
     localStorage.removeItem('uname');
@@ -244,21 +293,37 @@ export function UserLayout({ username, pfpSrc, onLogout }) {
   }
   return (
     <>
-      <img
-        id="user-pfp"
-        src={pfpSrc}
-        alt="pfp"
-        className="user-pfp"
-      />
-      <div className="popup-column" id="popup-user-pfp">
-        <button type="button" id="pfp-input-btn">
-          Change!
+      <div className="profile-avatar-menu">
+        <button
+          type="button"
+          className="profile-avatar-trigger"
+          aria-label="Change profile picture"
+          aria-expanded={showAvatarPopup}
+          aria-controls="popup-user-pfp"
+          onClick={() => setShowAvatarPopup((show) => !show)}
+        >
+          <img id="user-pfp" src={avatarUrl} alt="" className="user-pfp" />
         </button>
-        <input
-          type="file"
-          id="pfp-input-file"
-          accept="image/png,image/jpeg,image/webp"
-        />
+        <div
+          className={`profile-avatar-popup${showAvatarPopup ? ' is-open' : ''}`}
+          id="popup-user-pfp"
+        >
+          <button
+            type="button"
+            id="pfp-input-btn"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadingAvatar}
+          >
+          {uploadingAvatar ? 'Uploading…' : 'Change!'}
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            id="pfp-input-file"
+            accept="image/png,image/jpeg"
+            onChange={handleAvatarChange}
+          />
+        </div>
       </div>
       <div className="auth-username">{username}</div>
       <button type="button" onClick={handleLogout} id="logout-btn">
@@ -276,7 +341,7 @@ export function AuthBoard({ user, onLogin, onLogout }) {
     return (
       <UserLayout
         username={user.username}
-        pfpSrc={user.pfpSrc}
+        pfpURL={user.avatarUrl}
         onLogout={onLogout}
       />
     );

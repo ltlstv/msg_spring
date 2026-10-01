@@ -40,3 +40,33 @@
   max-width: 150px;
   max-height: 150px;
 }
+
+.profile-avatar-menu {
+  position: relative;
+}
+
+.profile-avatar-trigger {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.profile-avatar-popup {
+  display: none;
+}
+
+.profile-avatar-popup.is-open {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+  background: #3b3b3b;
+}
