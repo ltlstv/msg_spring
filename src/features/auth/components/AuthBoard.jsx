@@ -1,4 +1,5 @@
-import { createIdentity, saveToken, toProtectIdentity, bufferFromBase64, processBuffer, toExposeIdentity, signRequest, importPrivateKey, importPublicKey, verifyRequest, getUserPfpURL, uploadUserPfp } from '../../../services/utils.js';
+import { saveToken,getUserPfpURL, uploadUserPfp } from '../../../services/utils.js';
+import { createIdentity, toProtectIdentity, bufferFromBase64, processBuffer, toExposeIdentity, signRequest, importPrivateKey, importPublicKey, verifyRequest} from '../../../services/crypto.js'
 import { login, logout, register } from '../services/auth-api.js';
 import { useEffect, useRef, useState } from 'react';
 import pfpPlaceholder from '../../../assets/img/pfp-placeholder.png';

@@ -1,10 +1,17 @@
 import './assets/style.css';
 import './assets/BlogPage.css';
+import pfpPlaceholder from './assets/img/pfp-placeholder.png';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import maidenImg from './assets/img/maiden.png';
 import { BlogpostsBoard } from './features/blogposts/components/BlogpostsBoard';
-import { getCurrentUname } from './services/utils';
+import { getCurrentUname, getUserPfpURL } from './services/utils';
+
+/// DEV blog JSON OBJECT
+const blog_dev = {
+  author: 'Mitin',
+};
+/// DEV blog JSON OBJECT
 
 const BlogPage = () => {
 
@@ -16,14 +23,21 @@ const BlogPage = () => {
       .then(r => r.json())
       .then(setBlog());
   }, [username]);*/}
+  
+  useEffect(() => {
+    setBlog(blog_dev);
+  },[])
 
   return <BlogRenderer data={blog} />;
   }
 
-const BlogRenderer = () => {
+const BlogRenderer = (data) => {
   const [user, setUser] = useState(null);
   const [activeTopic, setActiveTopic] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(data.pfpURL || pfpPlaceholder);
   const [topics, setTopics] = useState({});
+
+  const author = data.author;
 
   /// auth & authority check
   useEffect(() => {
@@ -31,6 +45,7 @@ const BlogRenderer = () => {
     if(currentUname!='' && currentUname){
       setUser({ username: currentUname });
     }
+    
   }, []);
 
   function checkAuthority(user, author) {
@@ -40,7 +55,7 @@ const BlogRenderer = () => {
 
   /// blogposting
   function handleBlogpostSent(sentBlogpost) {
-    addBlogpost(sentBlogpost, { activate: true });
+    addBlogpost(sentBlogpost, { activate: true }); /// THIS IS DIABOLICAL WHO CALLS VARIABLES "SENTBLOGPOST" AND "SENDBLOGPOST" FUNCTION IDIOT
   }
   /// blogposting
 
@@ -51,7 +66,7 @@ const BlogRenderer = () => {
           id="author-window"
           className="app-window"
           data-msg-tab-content
-        >
+        ><img id="user-pfp" src={avatarUrl} alt="" className="user-pfp" />
         </section>
 
         <section
