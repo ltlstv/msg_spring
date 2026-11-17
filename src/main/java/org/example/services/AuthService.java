@@ -8,6 +8,7 @@ import org.example.dto.authDto.AuthRequest;
 import org.example.dto.authDto.AuthResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,31 @@ public class AuthService {
             } else {
                 return new AuthResponse.ErrorMessage("Wrong Password");
             }
+        }
+    }
+
+    public String me(HttpServletRequest request) {
+        try {
+            String header = request.getHeader("Authorization");
+
+            if (header == null || !header.startsWith("Bearer ")) {
+                return "anonymous";
+            }
+
+            String token = header.substring(7);
+
+            if (!jwtUtil.validateToken(token)) {
+                return "anonymous";
+            }
+
+            int userId = jwtUtil.getUserIdFromToken(token);
+
+            return userRepository.findById(userId)
+                    .map(Users::getUsername)
+                    .orElse("anonymous");
+
+        } catch (Exception e) {
+            return "error";
         }
     }
 
